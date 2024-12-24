@@ -3,45 +3,58 @@
     ViewData["Title"] = "Browse Products";
     int currentPage = ViewBag.CurrentPage;
     int totalPages = ViewBag.TotalPages;
+    ViewData["pagination"] = "pagination.css";
 }
-<h1>Browse Products</h1>
 
-<!-- Search and Filters -->
-<form method="get" action="/Home/Index">
-    <input type="text" name="search" placeholder="Search Anything" value="@Context.Request.Query["search"]" />
-    <select name="sort" onchange="this.form.submit()">
-        @if (Context.Request.Query["sort"] == "default")
-        {
-            <option value="default" selected>Default Sorting</option>
-        }
-        else
-        {
-            <option value="default">Default Sorting</option>
-        }
+<div class="small-container">
+    <div class="row row-2">
+        <h2>All Products</h2>
+        <!-- Search Bar -->
+        <div class="search">
+            <div class="container-lg">
+                <form method="get" action="/Home/Index" class="search-bar">
+                    <!-- The input value will appear in the URL as the 'search' parameter -->
+                    <input type="text" name="search" placeholder="Search Anything" value="@Context.Request.Query["search"]" />
+                    <button class="search-button" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
+            </div>
+        </div> <!-- End Search Bar -->
+        <div class="filters">
+            <form method="get" action="/Home/Index">
+                <select name="sort" id="sort-options" onchange="this.form.submit()">
+                    @if (Context.Request.Query["sort"] == "default")
+                    {
+                        <option value="default" selected>Default Sorting</option>
+                    }
+                    else
+                    {
+                        <option value="default">Default Sorting</option>
+                    }
 
-        @if (Context.Request.Query["sort"] == "price")
-        {
-            <option value="price" selected>Sort by Price</option>
-        }
-        else
-        {
-            <option value="price">Sort by Price</option>
-        }
+                    @if (Context.Request.Query["sort"] == "price")
+                    {
+                        <option value="price" selected>Sort by Price</option>
+                    }
+                    else
+                    {
+                        <option value="price">Sort by Price</option>
+                    }
 
-        @if (Context.Request.Query["sort"] == "rating")
-        {
-            <option value="rating" selected>Sort by Rating</option>
-        }
-        else
-        {
-            <option value="rating">Sort by Rating</option>
-        }
-    </select>
-
-
-    <button type="submit">Search</button>
-</form>
-
+                    @if (Context.Request.Query["sort"] == "rating")
+                    {
+                        <option value="rating" selected>Sort by Rating</option>
+                    }
+                    else
+                    {
+                        <option value="rating">Sort by Rating</option>
+                    }
+                </select>
+            </form>
+        </div> <!-- End Filters -->
+    </div>
+</div>
 
 <!-- Product List -->
 <div>
@@ -65,15 +78,42 @@
 </div>
 
 <!-- Pagination -->
-<div style="text-align: center;">
-    @if (currentPage > 0)
-    {
-        <a href="/Home/Index?page=@(currentPage - 1)" style="margin-right: 10px;">Back</a>
-    }
-    Page @(currentPage + 1) of @totalPages
-    @if (currentPage < totalPages - 1)
-    {
-        <a href="/Home/Index?page=@(currentPage + 1)" style="margin-left: 10px;">Next</a>
-    }
-</div>
+@* <div style="text-align: center;"> *@
+@*     @if (currentPage > 0) *@
+@*     { *@
+@*         <a href="/Home/Index?page=@(currentPage - 1)" style="margin-right: 10px;">Back</a> *@
+@*     } *@
+@*     Page @(currentPage + 1) of @totalPages *@
+@*     @if (currentPage < totalPages - 1) *@
+@*     { *@
+@*         <a href="/Home/Index?page=@(currentPage + 1)" style="margin-left: 10px;">Next</a> *@
+@*     } *@
+@* </div> *@
 
+@if (Model.Count > 0)
+{
+    <div class="pagination-controls" style="text-align: center; margin-top: 20px; margin-bottom: 50px;">
+        @if (currentPage > 0)
+        {
+            <a href="/Home/Index?page=@(currentPage - 1)"
+               id="prev"
+               class="pagination-button"
+                >
+                Back
+            </a>
+        }
+        @* Page @(currentPage + 1) of @totalPages *@
+        <span id="page-number" class="page-number">
+            Page @(currentPage + 1)
+        </span>
+        @if (currentPage < totalPages - 1)
+        {
+            <a href="/Home/Index?page=@(currentPage + 1)"
+                id="next"
+                class="pagination-button"
+                >
+                Next
+            </a>
+        }
+    </div>
+}

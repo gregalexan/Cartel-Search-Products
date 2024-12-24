@@ -60,5 +60,10 @@ namespace Cartel_Search_Products.Controllers
 
             return View("Index", paginatedProducts);
         }
+    
+        public IActionResult About()
+        {
+            return View("About");
+        }
     }
 }

@@ -1,0 +1,36 @@
+﻿.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* Spacing between elements */
+}
+
+.pagination-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--primary-color);
+    background-color: var(--background-color); /* Bootstrap blue */
+    border: none;
+    border-radius: 5px;
+    text-decoration: none; /* Remove underline */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+    .pagination-button:hover {
+        background-color: var(--light-color); /* Darker blue on hover */
+        transform: scale(1.05); /* Slight zoom effect */
+    }
+
+    .pagination-button:active {
+        background-color: var(--light-color); /* Even darker blue for active state */
+        transform: scale(0.95); /* Slight shrink effect */
+    }
+
+.page-number {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--primary-color);
+}

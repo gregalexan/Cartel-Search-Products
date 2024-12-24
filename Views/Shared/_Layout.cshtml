@@ -7,10 +7,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
     <link rel="icon" sizes="192x192" href="~/Images/Cartel.png" aria-label="Cartel Logo">
+    @if (ViewData["pagination"]?.ToString().Equals("pagination.css") == true)
+    {
+        <link rel="stylesheet" href="~/css/pagination.css" asp-append-version="true" />
+    }
 </head>
 <body>
+    <!-- Navbar-->
     <header>
-        <!-- Navbar -->
         <div class="container">
             <div class="navbar">
                 <div class="logo">
@@ -27,59 +31,61 @@
                 <nav>
                     <ul class="MenuItems">
                         <div class="menu-items-home-about">
-                        <li><a href="@Url.Action("Index", "Products")">Home</a></li>
-                        <li><a href="@Url.Action("About", "Home")">About</a></li>
-            </div>
-            <li>
-                <button style="font-family: 'Times New Roman', Times, serif; font-size: 16px;" class="dropbtn btnCart btnLogIn" onclick="showCategoriesDropdown()">
-                    Categories <i class="fa fa-caret-down"></i>
-                </button>
-                <div id="categoriesDropDown" class="dropdown-content">
-                    <a href="@Url.Action("Index", "Products", new { category = "Bathroom" })">Bathroom</a>
-                    <a href="@Url.Action("Index", "Products", new { category = "CleaningSupplies" })">Cleaning Supplies</a>
-                    <a href="@Url.Action("Index", "Products", new { category = "FoodSupplies" })">Food Supplies</a>
-                    <a href="@Url.Action("Index", "Products", new { category = "Kitchen" })">Kitchen</a>
-                    <a href="@Url.Action("Index", "Products", new { category = "Furniture" })">Furniture</a>
-                    <a href="@Url.Action("Index", "Products", new { category = "OfficeEquipment" })">Office Equipment</a>
-                    <a href="@Url.Action("Index", "Products", new { category = "Stationary" })">Stationary</a>
-                    <a href="@Url.Action("Index", "Products", new { category = "Hardware" })">Hardware</a>
-                    <a href="@Url.Action("Index", "Products", new { category = "PackagingMaterials" })">Packaging Materials</a>
-                    <a href="@Url.Action("Index", "Products", new { category = "Tools" })">Tools</a>
-                    <a href="@Url.Action("Index", "Products", new { category = "Lighting" })">Lighting</a>
-                </div>
-            </li>
+                            <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                            <li><a href="@Url.Action("About", "Home")">About</a></li>
+                        </div>
+                        <li>
+                            <button style="font-family: 'Times New Roman', Times, serif; font-size: 16px;" class="dropbtn btnCart btnLogIn" onclick="showCategoriesDropdown()">
+                                Categories <i class="fa fa-caret-down"></i>
+                            </button>
+                            <div id="categoriesDropDown" class="dropdown-content">
+                                <a href="@Url.Action("Index", "Home", new { category = "Bathroom" })">Bathroom</a>
+                                <a href="@Url.Action("Index", "Home", new { category = "CleaningSupplies" })">Cleaning Supplies</a>
+                                <a href="@Url.Action("Index", "Home", new { category = "FoodSupplies" })">Food Supplies</a>
+                                <a href="@Url.Action("Index", "Home", new { category = "Kitchen" })">Kitchen</a>
+                                <a href="@Url.Action("Index", "Home", new { category = "Furniture" })">Furniture</a>
+                                <a href="@Url.Action("Index", "Home", new { category = "OfficeEquipment" })">Office Equipment</a>
+                                <a href="@Url.Action("Index", "Home", new { category = "Stationary" })">Stationary</a>
+                                <a href="@Url.Action("Index", "Home", new { category = "Hardware" })">Hardware</a>
+                                <a href="@Url.Action("Index", "Home", new { category = "PackagingMaterials" })">Packaging Materials</a>
+                                <a href="@Url.Action("Index", "Home", new { category = "Tools" })">Tools</a>
+                                <a href="@Url.Action("Index", "Home", new { category = "Lighting" })">Lighting</a>
+                            </div>
+                        </li>
 
                         @if (User.Identity.IsAuthenticated)
                         {
-                <li>
-                    <button style="font-family: 'Times New Roman', Times, serif; font-size: 16px;" class="dropbtn btnCart btnLogIn" onclick="showAccountDropdown()">
-                                    @User.Identity.Name <!-- Display username -->
-                        <i class="fa fa-caret-down"></i>
-                    </button>
-                    <div id="accountDropDown" class="dropdown-content">
-                        <a href="@Url.Action("Profile", "Account")">Profile</a>
-                        <a href="@Url.Action("OrdersHistory", "Orders")">Orders</a>
-                        <a href="@Url.Action("MyProducts", "Products")">Products</a>
-                    </div>
-                </li>
-                <li><a class="btnCart btnLogIn" href="@Url.Action("Logout", "Account")"><i class="fa fa-sign-out"></i> Log out</a></li>
+                            <li>
+                                <button style="font-family: 'Times New Roman', Times, serif; font-size: 16px;" class="dropbtn btnCart btnLogIn" onclick="showAccountDropdown()">
+                                                @User.Identity.Name <!-- Display username -->
+                                    <i class="fa fa-caret-down"></i>
+                                </button>
+                                <div id="accountDropDown" class="dropdown-content">
+                                    <a href="@Url.Action("Profile", "Account")">Profile</a>
+                                    <a href="@Url.Action("OrdersHistory", "Orders")">Orders</a>
+                                    <a href="@Url.Action("MyProducts", "Products")">Products</a>
+                                </div>
+                            </li>
+                            <li><a class="btnCart btnLogIn" href="@Url.Action("Logout", "Account")"><i class="fa fa-sign-out"></i> Log out</a></li>
                         }
                         else
                         {
-                <li><a class="btnCart btnLogIn" href="@Url.Action("Login", "Account")"><i class="fa fa-sign-in"></i> Join Cartel</a></li>
+                            <li><a class="btnCart btnLogIn" href="@Url.Action("Login", "Account")"><i class="fa fa-sign-in"></i> Join Cartel</a></li>
                         }
 
-            <li>
-                <a href="@Url.Action("Cart", "ShoppingCart")" class="btnCart">
-                    <img src="~/Images/shopping_cart.png" width="20px" height="20px" alt="Cart">
-                </a>
-            </li>
-            </ul>
-            </nav>
-        </div>
-        </div>
+                        <li>
+                            <a href="@Url.Action("Cart", "ShoppingCart")" class="btnCart">
+                                <img src="~/Images/shopping_cart.png" width="20px" height="20px" alt="Cart">
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div> <!-- End Nav -->
+        </div> <!-- End Container -->
         <!-- End of Navbar -->
     </header>
+
+    <!-- Main -->
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
