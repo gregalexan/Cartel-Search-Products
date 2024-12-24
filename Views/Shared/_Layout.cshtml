@@ -4,30 +4,81 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Cartel</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    <link rel="icon" sizes="192x192" href="~/Images/Cartel.png" aria-label="Cartel Logo">
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Cartel_Search_Products</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+        <!-- Navbar -->
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <a href="@Url.Action("Index", "Home")">
+                        <img src="~/Images/Cartel.png" width="125px" alt="Logo">
+                    </a>
                 </div>
+
+                <!-- Hamburger menu for mobile -->
+                <div class="hamburger-menu" onclick="toggleMobileMenu()">
+                    &#9776; <!-- Hamburger icon -->
+                </div>
+
+                <nav>
+                    <ul class="MenuItems">
+                        <div class="menu-items-home-about">
+                        <li><a href="@Url.Action("Index", "Products")">Home</a></li>
+                        <li><a href="@Url.Action("About", "Home")">About</a></li>
             </div>
-        </nav>
+            <li>
+                <button style="font-family: 'Times New Roman', Times, serif; font-size: 16px;" class="dropbtn btnCart btnLogIn" onclick="showCategoriesDropdown()">
+                    Categories <i class="fa fa-caret-down"></i>
+                </button>
+                <div id="categoriesDropDown" class="dropdown-content">
+                    <a href="@Url.Action("Index", "Products", new { category = "Bathroom" })">Bathroom</a>
+                    <a href="@Url.Action("Index", "Products", new { category = "CleaningSupplies" })">Cleaning Supplies</a>
+                    <a href="@Url.Action("Index", "Products", new { category = "FoodSupplies" })">Food Supplies</a>
+                    <a href="@Url.Action("Index", "Products", new { category = "Kitchen" })">Kitchen</a>
+                    <a href="@Url.Action("Index", "Products", new { category = "Furniture" })">Furniture</a>
+                    <a href="@Url.Action("Index", "Products", new { category = "OfficeEquipment" })">Office Equipment</a>
+                    <a href="@Url.Action("Index", "Products", new { category = "Stationary" })">Stationary</a>
+                    <a href="@Url.Action("Index", "Products", new { category = "Hardware" })">Hardware</a>
+                    <a href="@Url.Action("Index", "Products", new { category = "PackagingMaterials" })">Packaging Materials</a>
+                    <a href="@Url.Action("Index", "Products", new { category = "Tools" })">Tools</a>
+                    <a href="@Url.Action("Index", "Products", new { category = "Lighting" })">Lighting</a>
+                </div>
+            </li>
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                <li>
+                    <button style="font-family: 'Times New Roman', Times, serif; font-size: 16px;" class="dropbtn btnCart btnLogIn" onclick="showAccountDropdown()">
+                                    @User.Identity.Name <!-- Display username -->
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div id="accountDropDown" class="dropdown-content">
+                        <a href="@Url.Action("Profile", "Account")">Profile</a>
+                        <a href="@Url.Action("OrdersHistory", "Orders")">Orders</a>
+                        <a href="@Url.Action("MyProducts", "Products")">Products</a>
+                    </div>
+                </li>
+                <li><a class="btnCart btnLogIn" href="@Url.Action("Logout", "Account")"><i class="fa fa-sign-out"></i> Log out</a></li>
+                        }
+                        else
+                        {
+                <li><a class="btnCart btnLogIn" href="@Url.Action("Login", "Account")"><i class="fa fa-sign-in"></i> Join Cartel</a></li>
+                        }
+
+            <li>
+                <a href="@Url.Action("Cart", "ShoppingCart")" class="btnCart">
+                    <img src="~/Images/shopping_cart.png" width="20px" height="20px" alt="Cart">
+                </a>
+            </li>
+            </ul>
+            </nav>
+        </div>
+        </div>
+        <!-- End of Navbar -->
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -35,14 +86,18 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <!-- Footer -->
+    <div class="footer">
         <div class="container">
-            &copy; 2024 - Cartel_Search_Products - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <h3>
+                &copy; 2024 Cartel<br>
+                All rights reserved.
+            </h3>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    </div>
+
+    <!-- Scripts -->
+    <script src="~/js/main.js"></script>
+    <script src="~/js/dropdowns.js"></script>
 </body>
 </html>
