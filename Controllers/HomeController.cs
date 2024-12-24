@@ -35,7 +35,7 @@ namespace Cartel_Search_Products.Controllers
             },
         };
 
-        public IActionResult Index(string search = "all", string category = "all", string sort = "default", int page = 0, int itemsPerPage = 1)
+        public IActionResult Index(string search = "all", string category = "all", string sort = "default", int page = 0, int itemsPerPage = 8)
         {
             // Filter Products by search or category
             var filteredProducts = products

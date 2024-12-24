@@ -54,66 +54,80 @@
             </form>
         </div> <!-- End Filters -->
     </div>
-</div>
 
-<!-- Product List -->
-<div>
-    @if (Model.Count > 0)
-    {
-        foreach (var product in Model)
+    <!-- Product List -->
+    <div class="row" id="product-list">
+        @if (Model.Count > 0)
         {
-            <div style="border: 1px solid #ccc; padding: 10px; margin: 10px; display: inline-block; width: 200px;">
-                <img src="@product.image" alt="@product.name" style="width: 100%;" />
-                <h4>@product.name</h4>
-                <p>Price: @product.price $</p>
-                <p>Stock: @(product.stock > 0 ? product.stock + " available" : "Out of Stock")</p>
-                <p>Rating: @string.Concat(Enumerable.Repeat("★", (int)product.rating))</p>
+            @foreach (var product in Model)
+            {
+                var reviewAverage = product.rating; // I will replace this with the review average later 
+                <div class="col-4">
+                    <img src=@product.image
+                    onclick="window.location.href='@Url.Action("Details", "Product", new { productId = product.ProductID })'"
+                    style="cursor: pointer;" />
+                    <h4>@product.name</h4>
+                    <div class="rating">
+                        @for (int i = 0; i < reviewAverage; i++)
+                        {
+                            <i class="fa fa-star"></i>
+                        }
+                        @for (int i = reviewAverage; i < 5; i++)
+                        {
+                            <i class="fa fa-star-o"></i>
+                        }
+                    </div>
+                    <p>@product.price $</p>
+                    @if (product.stock == 0)
+                    {
+                        <p style="color: red;">Out of Stock!</p> <!-- Show message if the stock is 0 -->
+                    }
+                </div>
+            }
+
+        }
+        else
+        {
+            <div style="text-align: center;">
+                @if (@Context.Request.Query["search"].ToString().Equals("all") == true)
+                {
+                    <h3>No products found</h3>
+                }
+                else
+                {
+                    <h3>No products found matching: @Context.Request.Query["search"]</h3>
+                }
+                <img src="~/Images/no-products-icon.png" style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
             </div>
         }
-    }
-    else
+    </div>
+
+    <!-- Pagination -->
+    @if (Model.Count > 0)
     {
-        <p>No products found.</p>
+        <div class="pagination-controls" style="text-align: center; margin-top: 20px; margin-bottom: 50px;">
+            @if (currentPage > 0)
+            {
+                <a href="/Home/Index?page=@(currentPage - 1)"
+                   id="prev"
+                   class="pagination-button">
+                    Back
+                </a>
+            }
+            @* Page @(currentPage + 1) of @totalPages *@
+            <span id="page-number" class="page-number">
+                Page @(currentPage + 1)
+            </span>
+            @if (currentPage < totalPages - 1)
+            {
+                <a href="/Home/Index?page=@(currentPage + 1)"
+                   id="next"
+                   class="pagination-button">
+                    Next
+                </a>
+            }
+        </div>
     }
+
 </div>
 
-<!-- Pagination -->
-@* <div style="text-align: center;"> *@
-@*     @if (currentPage > 0) *@
-@*     { *@
-@*         <a href="/Home/Index?page=@(currentPage - 1)" style="margin-right: 10px;">Back</a> *@
-@*     } *@
-@*     Page @(currentPage + 1) of @totalPages *@
-@*     @if (currentPage < totalPages - 1) *@
-@*     { *@
-@*         <a href="/Home/Index?page=@(currentPage + 1)" style="margin-left: 10px;">Next</a> *@
-@*     } *@
-@* </div> *@
-
-@if (Model.Count > 0)
-{
-    <div class="pagination-controls" style="text-align: center; margin-top: 20px; margin-bottom: 50px;">
-        @if (currentPage > 0)
-        {
-            <a href="/Home/Index?page=@(currentPage - 1)"
-               id="prev"
-               class="pagination-button"
-                >
-                Back
-            </a>
-        }
-        @* Page @(currentPage + 1) of @totalPages *@
-        <span id="page-number" class="page-number">
-            Page @(currentPage + 1)
-        </span>
-        @if (currentPage < totalPages - 1)
-        {
-            <a href="/Home/Index?page=@(currentPage + 1)"
-                id="next"
-                class="pagination-button"
-                >
-                Next
-            </a>
-        }
-    </div>
-}
