@@ -12,7 +12,7 @@
         <!-- Search Bar -->
         <div class="search">
             <div class="container-lg">
-                <form method="get" action="/Home/Index" class="search-bar">
+                <form method="get" action="" class="search-bar">
                     <!-- The input value will appear in the URL as the 'search' parameter -->
                     <input type="text" name="search" placeholder="Search Anything" value="@Context.Request.Query["search"]" />
                     <button class="search-button" type="submit">
@@ -22,7 +22,7 @@
             </div>
         </div> <!-- End Search Bar -->
         <div class="filters">
-            <form method="get" action="/Home/Index">
+            <form method="get" action="">
                 <select name="sort" id="sort-options" onchange="this.form.submit()">
                     @if (Context.Request.Query["sort"] == "default")
                     {
@@ -61,12 +61,12 @@
         {
             @foreach (var product in Model)
             {
-                var reviewAverage = product.rating; // I will replace this with the review average later 
+                var reviewAverage = 4; // I will replace this with the review average later 
                 <div class="col-4">
                     <img src=@product.image
                     onclick="window.location.href='@Url.Action("Details", "Product", new { productId = product.ProductID })'"
                     style="cursor: pointer;" />
-                    <h4>@product.name</h4>
+                    <h4>@product.productName</h4>
                     <div class="rating">
                         @for (int i = 0; i < reviewAverage; i++)
                         {
@@ -102,25 +102,31 @@
         }
     </div>
 
+
     <!-- Pagination -->
     @if (Model.Count > 0)
     {
         <div class="pagination-controls" style="text-align: center; margin-top: 20px; margin-bottom: 50px;">
+
+            @* If the current page is greater than 0 (not the first page), show the "Back" button *@
             @if (currentPage > 0)
             {
-                <a href="/Home/Index?page=@(currentPage - 1)"
+                <a href="?category=@Context.Request.Query["category"].ToString()&page=@(currentPage - 1)@(string.IsNullOrEmpty(@Context.Request.Query["sort"].ToString()) ? "" : "&sort=" + @Context.Request.Query["sort"].ToString())"
                    id="prev"
                    class="pagination-button">
                     Back
                 </a>
             }
-            @* Page @(currentPage + 1) of @totalPages *@
+
+            @* Display the current page number *@
             <span id="page-number" class="page-number">
                 Page @(currentPage + 1)
             </span>
+
+            @* If there are more pages (i.e., the current page is not the last page), show the "Next" button *@
             @if (currentPage < totalPages - 1)
             {
-                <a href="/Home/Index?page=@(currentPage + 1)"
+                <a href="?category=@Context.Request.Query["category"].ToString()&page=@(currentPage + 1)@(string.IsNullOrEmpty(@Context.Request.Query["sort"].ToString()) ? "" : "&sort=" + @Context.Request.Query["sort"].ToString())"
                    id="next"
                    class="pagination-button">
                     Next

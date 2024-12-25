@@ -53,7 +53,7 @@
                             </div>
                         </li>
 
-                        @if (User.Identity.IsAuthenticated)
+                        @if (ViewBag.CurrentUser != null)
                         {
                             <li>
                                 <button style="font-family: 'Times New Roman', Times, serif; font-size: 16px;" class="dropbtn btnCart btnLogIn" onclick="showAccountDropdown()">
