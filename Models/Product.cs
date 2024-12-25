@@ -1,4 +1,6 @@
-﻿namespace Cartel_Search_Products.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Cartel_Search_Products.Models
 {
     public class Product
     {
@@ -10,5 +12,8 @@
         public double price { get; set; }
         public int stock { get; set; }
         public string supplier { get; set; }
+        
+        [NotMapped]
+        public int rating { get; set; }
     }
 }

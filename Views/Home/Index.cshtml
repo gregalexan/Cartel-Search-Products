@@ -61,18 +61,18 @@
         {
             @foreach (var product in Model)
             {
-                var reviewAverage = 4; // I will replace this with the review average later 
+                @* var reviewAverage = 4; // I will replace this with the review average later  *@
                 <div class="col-4">
                     <img src=@product.image
                     onclick="window.location.href='@Url.Action("Details", "Product", new { productId = product.ProductID })'"
                     style="cursor: pointer;" />
                     <h4>@product.productName</h4>
                     <div class="rating">
-                        @for (int i = 0; i < reviewAverage; i++)
+                        @for (int i = 0; i < product.rating; i++)
                         {
                             <i class="fa fa-star"></i>
                         }
-                        @for (int i = reviewAverage; i < 5; i++)
+                        @for (int i = product.rating; i < 5; i++)
                         {
                             <i class="fa fa-star-o"></i>
                         }

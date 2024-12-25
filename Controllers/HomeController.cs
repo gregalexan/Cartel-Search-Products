@@ -1,5 +1,6 @@
 using Cartel_Search_Products.Helpers;
 using Cartel_Search_Products.Models;
+using Cartel_Search_Products.Services;
 using Microsoft.AspNetCore.Mvc;
 using MySqlConnector;
 using System.Collections.Generic;
@@ -10,14 +11,25 @@ namespace Cartel_Search_Products.Controllers
     public class HomeController : Controller
     {
         private readonly AppDbContext _appDbContext;
-        public HomeController(AppDbContext appDbContext)
+        private readonly ProductService _productService;
+
+        public HomeController(AppDbContext appDbContext, ProductService productService)
         {
             _appDbContext = appDbContext;
+            _productService = productService;
         }
+
         public IActionResult Index(string search = "all", string category = "all", string sort = "default", int page = 0, int itemsPerPage = 8)
         {
             // Get all products from the database
             var products = _appDbContext.Product.AsQueryable();
+
+            // For each product calculate the rating
+            foreach (var product in products)
+            {
+                _productService.SetProductRating(product);
+            }
+
 
             // If the search keyword is not 'all', perform a search
             if (search != "all")
