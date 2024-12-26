@@ -1,89 +1,65 @@
-using Cartel_Search_Products.Helpers;
 using Cartel_Search_Products.Models;
-using Cartel_Search_Products.Services;
 using Microsoft.AspNetCore.Mvc;
 using MySqlConnector;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Cartel_Search_Products.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly AppDbContext _appDbContext;
-        private readonly ProductService _productService;
-
-        public HomeController(AppDbContext appDbContext, ProductService productService)
+        private readonly IConfiguration _configuration;
+        public HomeController(IConfiguration configuration)
         {
-            _appDbContext = appDbContext;
-            _productService = productService;
+            _configuration = configuration;
         }
 
+        [HttpGet]
+        [HttpPost]
         public IActionResult Index(string search = "all", string category = "all", string sort = "default", int page = 0, int itemsPerPage = 8)
         {
-            // Get all products from the database
-            var products = _appDbContext.Product.AsQueryable();
+            // A list of strings (keywords) based on which products will be shown
+            List<String> keywords = new List<String>();
 
-            // For each product calculate the rating
-            foreach (var product in products)
-            {
-                _productService.SetProductRating(product);
-            }
-
-
-            // If the search keyword is not 'all', perform a search
-            if (search != "all")
-            {
-                // Split the query into words (using space as a delimiter)
-                var searchInputs = search.Split(new[] { ' ' });
-
-                // If there are multiple search words, combine them using OR logic
-                if (searchInputs.Length > 1)
-                {
-                    // Use AsEnumerable() to switch to client-side evaluation for the 'Any' condition
-                    products = products.AsEnumerable().Where(p =>
-                        searchInputs.Any(keyword =>
-                            p.productName.Contains(keyword) ||
-                            p.category.Contains(keyword) ||
-                            p.description.Contains(keyword) ||
-                            p.supplier.Contains(keyword)
-                        )
-                    ).AsQueryable();
-                }
-                else // single word search
-                {
-                    products = products.Where(p =>
-                        p.productName.Contains(search) ||
-                        p.category.Contains(search) ||
-                        p.description.Contains(search) ||
-                        p.supplier.Contains(search)
-                    );
-                }
-            }
-
-
-            // Filter by category if specified
+            // view products by category
+            Boolean categoryFlag = false;
             if (category != "all")
             {
-                products = products.Where(p => p.category.Equals(category));
+                keywords.Add(category);
+                categoryFlag = true;
             }
 
-            // Sorting logic based on the 'sort' parameter
-            products = sort switch
+            if (search != "all")
             {
-                "price" => products.OrderBy(p => p.price),
-                "rating" => products.OrderByDescending(p => 4), // Fix Rating Later TODO!!
-                _ => products // Default
-            };
+                // Split the search query on every space and add them in the keywords
+                String[] words = search.Split("\\s+");
+                foreach (String word in words)
+                {
+                    keywords.Add(word.Trim());
+                }
+            }
 
-            // Pagination logic
-            var paginatedProducts = products.Skip(page * itemsPerPage).Take(itemsPerPage).ToList();
+            // Neither category is selected nor a search query is provided
+            if (keywords.Count == 0)
+            {
+                keywords.Add("all");
+            }
+
+            using var connection = new MySqlConnection(_configuration.GetConnectionString("Default"));
+            ProductModel pm = new ProductModel(connection);
+            var products_before = pm.viewProducts(keywords, categoryFlag);
+
+            var products_sort = pm.SortProducts(products_before, sort);
+
+            //Pagination logic
+            var products = products_sort.Skip(page * itemsPerPage).Take(itemsPerPage).ToList();
 
             // Pass data to the view
             ViewBag.CurrentPage = page;
-            ViewBag.TotalPages = (int)Math.Ceiling((double)products.Count() / itemsPerPage);
+            ViewBag.TotalPages = (int)Math.Ceiling((double)products_sort.Count() / itemsPerPage);
 
-            return View("Index", paginatedProducts);
+            connection.Close();
+
+
+            return View("Index", products);
         }
 
         public IActionResult About()

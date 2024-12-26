@@ -1,20 +1,10 @@
 using MySqlConnector;
 using Microsoft.EntityFrameworkCore;
 using Cartel_Search_Products.Models;
-using Cartel_Search_Products.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configure DbContext for MySQL
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseMySql(
-        builder.Configuration.GetConnectionString("Default"),
-        new MySqlServerVersion(new Version(8, 0, 31)) // This could be changed later.
-    )
-);
 
-// Register the ProductService
-builder.Services.AddScoped<ProductService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
