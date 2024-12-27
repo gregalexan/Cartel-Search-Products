@@ -4,8 +4,6 @@ using Cartel_Search_Products.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -13,10 +11,14 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30); // Set Session Timout
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Set Session Timeout
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+
+// Register MySqlConnection as a service
+builder.Services.AddTransient<MySqlConnection>(_ =>
+    new MySqlConnection(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
@@ -24,12 +26,10 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseSession();
-
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

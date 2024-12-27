@@ -12,17 +12,25 @@ namespace Cartel_Search_Products.Models
             _connection = connection;
         }
         // Set product rating for now
-        public void SetProductRating(Product product)
+        public void SetProductRating(Product product, List<Review> reviews)
         {
-            // For now 
-            if (product.price > 12)
+            //ReviewModel rm = new ReviewModel(_connection);
+            //List<Review> reviews = rm.getProductReviews(product);
+            int average = 0;
+            int total_stars = 0;
+            foreach (Review review in reviews)
             {
-                product.rating = 5;
+                total_stars += review.stars;
+            }
+            if (reviews.Count > 0)
+            {
+                average = (int)Math.Ceiling((double)total_stars / reviews.Count);
             }
             else
             {
-                product.rating = 4;
+                average = 0;
             }
+            product.rating = average;
         }
 
         // Get Products from database based on keywords and categories
@@ -38,21 +46,88 @@ namespace Cartel_Search_Products.Models
 
                 if (keywords.Count == 1 && keywords[0].Equals("all"))
                 {
-                    // Fetch all products
-                    query = "SELECT * FROM product";
+                    // Fetch all products with average rating
+                    query = @"
+                        SELECT 
+                            product.productID,
+                            product.productName,
+                            product.image,
+                            product.category,
+                            product.description,
+                            product.price,
+                            product.stock,
+                            product.supplier,
+                            COALESCE(AVG(reviews.stars), 0) AS averageRating
+                        FROM 
+                            product
+                        LEFT JOIN 
+                            reviews ON product.productID = reviews.productID
+                        GROUP BY 
+                            product.productID, 
+                            product.productName, 
+                            product.image, 
+                            product.category, 
+                            product.description, 
+                            product.price, 
+                            product.stock, 
+                            product.supplier;
+                    ";
                     command = new MySqlCommand(query, _connection);
                 }
                 else if (isCategory)
                 {
-                    // Search by category
-                    query = "SELECT * FROM product WHERE category = @category";
+                    // Search by category with average rating
+                    query = @"
+                        SELECT 
+                            product.productID,
+                            product.productName,
+                            product.image,
+                            product.category,
+                            product.description,
+                            product.price,
+                            product.stock,
+                            product.supplier,
+                            COALESCE(AVG(reviews.stars), 0) AS averageRating
+                        FROM 
+                            product
+                        LEFT JOIN 
+                            reviews ON product.productID = reviews.productID
+                        WHERE 
+                            product.category = @category
+                        GROUP BY 
+                            product.productID, 
+                            product.productName, 
+                            product.image, 
+                            product.category, 
+                            product.description, 
+                            product.price, 
+                            product.stock, 
+                            product.supplier;
+                    ";
                     command = new MySqlCommand(query, _connection);
                     command.Parameters.AddWithValue("@category", keywords[0]);
                 }
                 else
                 {
-                    // Build query for keyword search
-                    var queryBuilder = new StringBuilder("SELECT * FROM product WHERE ");
+                    // Build query for keyword search with average rating
+                    var queryBuilder = new StringBuilder(@"
+                        SELECT 
+                            product.productID,
+                            product.productName,
+                            product.image,
+                            product.category,
+                            product.description,
+                            product.price,
+                            product.stock,
+                            product.supplier,
+                            COALESCE(AVG(reviews.stars), 0) AS averageRating
+                        FROM 
+                            product
+                        LEFT JOIN 
+                            reviews ON product.productID = reviews.productID
+                        WHERE 
+                    ");
+
                     var parameters = new List<MySqlParameter>();
 
                     for (int i = 0; i < keywords.Count; i++)
@@ -63,10 +138,10 @@ namespace Cartel_Search_Products.Models
                         }
 
                         string paramNameBase = $"@keyword{i}";
-                        queryBuilder.Append($"productName LIKE {paramNameBase}p OR ")
-                                  .Append($"category LIKE {paramNameBase}c OR ")
-                                  .Append($"description LIKE {paramNameBase}d OR ")
-                                  .Append($"supplier LIKE {paramNameBase}s");
+                        queryBuilder.Append($"product.productName LIKE {paramNameBase}p OR ")
+                                    .Append($"product.category LIKE {paramNameBase}c OR ")
+                                    .Append($"product.description LIKE {paramNameBase}d OR ")
+                                    .Append($"product.supplier LIKE {paramNameBase}s");
 
                         string wildcardKeyword = $"%{keywords[i]}%";
                         parameters.Add(new MySqlParameter($"{paramNameBase}p", wildcardKeyword));
@@ -74,6 +149,18 @@ namespace Cartel_Search_Products.Models
                         parameters.Add(new MySqlParameter($"{paramNameBase}d", wildcardKeyword));
                         parameters.Add(new MySqlParameter($"{paramNameBase}s", wildcardKeyword));
                     }
+
+                    queryBuilder.Append(@"
+                        GROUP BY 
+                            product.productID, 
+                            product.productName, 
+                            product.image, 
+                            product.category, 
+                            product.description, 
+                            product.price, 
+                            product.stock, 
+                            product.supplier;
+                    ");
 
                     query = queryBuilder.ToString();
                     command = new MySqlCommand(query, _connection);
@@ -92,15 +179,15 @@ namespace Cartel_Search_Products.Models
                         description = reader.GetString("description"),
                         price = reader.GetDouble("price"),
                         stock = reader.GetInt32("stock"),
-                        supplier = reader.GetString("supplier")
+                        supplier = reader.GetString("supplier"),
+                        rating = reader.GetInt32("averageRating") // Populate the rating directly from query
                     };
 
-                    // Set the rating using the existing method
-                    SetProductRating(product);
                     products.Add(product);
                 }
             }
 
+            _connection.Close();
             return products;
         }
 
