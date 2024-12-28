@@ -1,0 +1,45 @@
+﻿@model Cartel_Search_Products.Models.Product;
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+@if (Model == null)
+{
+    <div class="alert alert-warning" role="alert">
+        No product details available. Please select a valid product.
+    </div>
+}
+else
+{
+    <div class="small-container single-product">
+        <div class="row">
+            <div class="col-2">
+                <img src="@Url.Content($"~/{Model.image}")" width="100%" />
+            </div>
+            <div class="col-2">
+                <p>Home / @Model.category</p>
+                <h1>@Model.productName</h1>
+                <h3>by @Model.supplier</h3>
+                <h4>@Model.price</h4>
+                <br />
+                <h5>Stock: @Model.stock</h5>
+                @if (Model.stock == 0)
+                {
+                    <h3 style="color: red; margin-top: 15px; margin-bottom: 15px;">
+                        Out of Stock!
+                    </h3>
+                }
+                else
+                {
+                    <input type="number" id="quantityInput" name="quantity" value="1"/>
+                    <input type="hidden" value=@Model.ProductID id="productId"/>
+                    <a onclick="#" class="btn" style="cursor:pointer;">Add to Cart</a>
+                }
+                <h3>Product Details <i class="fa fa-ident"></i></h3>
+                <br />
+                <p>@Model.description</p>
+            </div>
+        </div>
+    </div>
+}

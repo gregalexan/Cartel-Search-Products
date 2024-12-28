@@ -11,27 +11,6 @@ namespace Cartel_Search_Products.Models
         {
             _connection = connection;
         }
-        // Set product rating for now
-        public void SetProductRating(Product product, List<Review> reviews)
-        {
-            //ReviewModel rm = new ReviewModel(_connection);
-            //List<Review> reviews = rm.getProductReviews(product);
-            int average = 0;
-            int total_stars = 0;
-            foreach (Review review in reviews)
-            {
-                total_stars += review.stars;
-            }
-            if (reviews.Count > 0)
-            {
-                average = (int)Math.Ceiling((double)total_stars / reviews.Count);
-            }
-            else
-            {
-                average = 0;
-            }
-            product.rating = average;
-        }
 
         // Get Products from database based on keywords and categories
         public List<Product> viewProducts(List<string> keywords, bool isCategory)
@@ -206,6 +185,22 @@ namespace Cartel_Search_Products.Models
             }
 
             return products;
+        }
+    
+        // Get the product by its id
+        public Product getProductById(int productId)
+        {
+            List<String> keywords = new List<String>();
+            keywords.Add("all");
+            List<Product> products = viewProducts(keywords, false);
+            foreach (var product in products)
+            {
+                if (product.ProductID == productId)
+                {
+                    return product;
+                }
+            }
+            return null;
         }
     }
 }
