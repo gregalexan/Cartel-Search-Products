@@ -1,4 +1,4 @@
-﻿@model Cartel_Search_Products.Models.Product;
+﻿@model Cartel_Search_Products.Models.ProductDetailsModel;
 
 @{
     ViewData["Title"] = "Product Details";
@@ -6,25 +6,29 @@
 
 @if (Model == null)
 {
-    <div class="alert alert-warning" role="alert">
-        No product details available. Please select a valid product.
+    <div style="text-align: center; margin-top: 100px;">
+        <img src="~/images//Cartel.png" width="150" height="150"/>
     </div>
+    <div style="padding: 15px; background-color: #F4E8C1; color: white; border: 2px solid #e5bf6b; border-radius: 5px; font-family: 'Times New Roman', Times, serif, sans-serif; font-size: 16px; text-align: center; width: 100%; margin-top: 50px; margin-bottom: 250px;">
+        Please choose a valid product.
+    </div>
+
 }
 else
 {
     <div class="small-container single-product">
         <div class="row">
             <div class="col-2">
-                <img src="@Url.Content($"~/{Model.image}")" width="100%" />
+                <img src="@Url.Content($"~/{Model.Product.image}")" width="100%" />
             </div>
             <div class="col-2">
-                <p>Home / @Model.category</p>
-                <h1>@Model.productName</h1>
-                <h3>by @Model.supplier</h3>
-                <h4>@Model.price</h4>
+                <p>Home / @Model.Product.category</p>
+                <h1>@Model.Product.productName</h1>
+                <h3>by @Model.Product.supplier</h3>
+                <h4>@Model.Product.price $</h4>
                 <br />
-                <h5>Stock: @Model.stock</h5>
-                @if (Model.stock == 0)
+                <h5>Stock: @Model.Product.stock</h5>
+                @if (Model.Product.stock == 0)
                 {
                     <h3 style="color: red; margin-top: 15px; margin-bottom: 15px;">
                         Out of Stock!
@@ -33,13 +37,150 @@ else
                 else
                 {
                     <input type="number" id="quantityInput" name="quantity" value="1"/>
-                    <input type="hidden" value=@Model.ProductID id="productId"/>
+                    <input type="hidden" value=@Model.Product.ProductID id="productId" />
                     <a onclick="#" class="btn" style="cursor:pointer;">Add to Cart</a>
                 }
                 <h3>Product Details <i class="fa fa-ident"></i></h3>
                 <br />
-                <p>@Model.description</p>
+                <p>@Model.Product.description</p>
             </div>
+        </div>
+    </div>
+
+    // Reviews 
+    <div class="small-container reviews">
+        <div class="row row-2">
+            <h2>Reviews</h2>
+            @if (Model.Reviews.Count > 0 & Model.Reviews.Count > 3)
+            {
+                <div class="view-more">
+                    <a href="#">View More</a>
+                </div>
+            }
+        </div>
+        <div class="review-row">
+            @if (Model.Reviews.Count > 0 & Model.Reviews.Count <= 3)
+            {
+                foreach (var review in Model.Reviews)
+                {
+                    <div class="review">
+                        <img src="@Url.Content($"~/{review.companyImage}")" alt="User Image" class="review-img"/>
+                        <div class="review-content">
+                            <h3> @review.companyName </h3>
+                            <div class="rating">
+                                @for (int i = 0; i < review.stars; i++)
+                                {
+                                    <i class="fa fa-star"></i>
+                                }
+                                @for (int i = review.stars; i < 5; i++)
+                                {
+                                    <i class="fa fa-star-o"></i>
+                                }
+                            </div>
+                            <p> @review.review </p>
+                        </div>
+                    </div>
+                }
+            }
+            else if (Model.Reviews.Count == 0)
+            {
+                <div style="display:flex; justify-content:center; align-items:center; width: 100%">
+                    <h3 style="color: #111; text-align: center;">
+                        There are no reviews yet for this product.
+                    </h3>
+                </div>
+            }
+            else if (Model.Reviews.Count > 3)
+            {
+                @for (int times = 0; times < 3; times++)
+                {
+                    <div class="review">
+                        <img src="@Url.Content($"~/{Model.Reviews[times].companyImage}")" alt="User Image" class="review-img" />
+                        <div class="review-content">
+                            <div class="rating">
+                                @for (int i = 0; i < Model.Reviews[times].stars; i++)
+                                {
+                                    <i class="fa fa-star"></i>
+                                }
+                                @for (int i = Model.Reviews[times].stars; i < 5; i++)
+                                {
+                                    <i class="fa fa-star-o"></i>
+                                }
+                            </div>
+                            <p> @Model.Reviews[times].review </p>
+                        </div>
+                    </div>
+                }
+            }
+            @if (Model.Reviews.Count == 0)
+            {
+                <a href="#" class="btn">Add the first review</a>
+            }
+            else
+            {
+                <a href="#" class="btn">Add your own review</a>
+            }
+        </div>
+    </div>
+
+    // Related Products
+    <div class="small-container related-products">
+        <div class="row row-2">
+            <h2>Related Products</h2>
+            <div class="view-more">
+                <a href="@Url.Action("Index", "Home", new {category = Model.Product.category})">View More</a>
+            </div>
+        </div>
+    </div>
+    <div class="small-container">
+        <div class="row">
+            @if (Model.Related.Count > 0 & Model.Related.Count <= 4)
+            {
+                @foreach (var relatedProduct in Model.Related)
+                {
+                    <div class="col-4">
+                        <img src="@Url.Content($"~/{relatedProduct.image}")" 
+                        onclick="window.location.href='@Url.Action("Details", "Product", new { productId = relatedProduct.ProductID })'"
+                        style="cursor:pointer;"
+                        />
+                        <h4>@relatedProduct.productName</h4>
+                        <div class="rating">
+                            @for (int i = 0; i < relatedProduct.rating; i++)
+                            {
+                                <i class="fa fa-star"></i>
+                            }
+                            @for (int i = relatedProduct.rating; i < 5; i++)
+                            {
+                                <i class="fa fa-star-o"></i>
+                            }
+                        </div>
+                        <p>@relatedProduct.price $</p>
+                    </div>
+                }
+            }
+            else if (Model.Related.Count > 4)
+            {
+                @for (int times = 0; times < 4; times++)
+                {
+                    <div class="col-4">
+                        <img src="@Url.Content($"~/{Model.Related[times].image}")"
+                             onclick="window.location.href='@Url.Action("Details", "Product", new { productId = Model.Related[times].ProductID })'"
+                             style="cursor:pointer;" />
+                        <h4>@Model.Related[times].productName</h4>
+                        <div class="rating">
+                            @for (int i = 0; i < Model.Related[times].rating; i++)
+                            {
+                                <i class="fa fa-star"></i>
+                            }
+                            @for (int i = Model.Related[times].rating; i < 5; i++)
+                            {
+                                <i class="fa fa-star-o"></i>
+                            }
+                        </div>
+                        <p> @Model.Related[times].price $</p>
+                    </div>
+                }
+            }
         </div>
     </div>
 }
