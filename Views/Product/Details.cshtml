@@ -7,7 +7,7 @@
 @if (Model == null)
 {
     <div style="text-align: center; margin-top: 100px;">
-        <img src="~/images//Cartel.png" width="150" height="150"/>
+        <img src="~/images/Cartel.png" width="150" height="150"/>
     </div>
     <div style="padding: 15px; background-color: #F4E8C1; color: white; border: 2px solid #e5bf6b; border-radius: 5px; font-family: 'Times New Roman', Times, serif, sans-serif; font-size: 16px; text-align: center; width: 100%; margin-top: 50px; margin-bottom: 250px;">
         Please choose a valid product.
@@ -54,7 +54,7 @@ else
             @if (Model.Reviews.Count > 0 & Model.Reviews.Count > 3)
             {
                 <div class="view-more">
-                    <a href="#">View More</a>
+                    <a href="@Url.Action("Reviews", "Product", new { productId = Model.Product.ProductID})">View More</a>
                 </div>
             }
         </div>
@@ -127,9 +127,12 @@ else
     <div class="small-container related-products">
         <div class="row row-2">
             <h2>Related Products</h2>
-            <div class="view-more">
-                <a href="@Url.Action("Index", "Home", new {category = Model.Product.category})">View More</a>
-            </div>
+            @if (Model.Related.Count > 0 & Model.Related.Count > 4)
+            {
+                <div class="view-more">
+                    <a href="@Url.Action("Index", "Home", new {category = Model.Product.category})">View More</a>
+                </div>
+            }
         </div>
     </div>
     <div class="small-container">

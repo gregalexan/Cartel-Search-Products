@@ -1,0 +1,81 @@
+﻿@model Cartel_Search_Products.Models.ProductDetailsModel;
+@{
+    ViewData["Title"] = "Product Reviews";
+}
+
+
+@if (Model == null)
+{
+    <div style="text-align: center; margin-top: 100px;">
+        <img src="~/images/Cartel.png" width="150" height="150"/>
+    </div>
+    <div style="padding: 15px; background-color: #F4E8C1; color: white; border: 2px solid #e5bf6b; border-radius: 5px; font-family: 'Times New Roman', Times, serif, sans-serif; font-size: 16px; text-align: center; width: 100%; margin-top: 50px; margin-bottom: 250px;">
+        Please choose a valid product.
+    </div>
+
+}
+else
+{
+    <!-- Profile Section -->
+    <div class="small-container single-product">
+        <div class="row">
+            <div class="col-2">
+                <img src="@Url.Content($"~/{Model.Product.image}")" width="100%" />
+            </div>
+            <div class="col-2">
+                <p>Home / @Model.Product.category</p>
+                <h1>@Model.Product.productName</h1>
+                <h3>by @Model.Product.supplier</h3>
+                <div class="rating" style="margin-top: 23px; text-align: left;">
+                    @for (int i = 0; i < Model.Product.rating; i++)
+                    {
+                        <i style="font-size: 50px;" class="fa fa-star"></i>
+                    }
+                    @for (int i = 0; i < 5 - Model.Product.rating; i++)
+                    {
+                        <i style="font-size: 50px;" class="fa fa-star-o"></i>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Reviews -->
+    <div class="small-container reviews" style="margin-bottom: 150px;">
+        <div class="row row-2">
+            <h2>Reviews</h2>
+        </div>
+        <div class="review-row">
+            @if (Model.Reviews.Count > 0)
+            {
+                foreach (var review in Model.Reviews)
+                {
+                    <div class="review">
+                        <img src="@Url.Content($"~/{review.companyImage}")" alt="User Image" class="review-img" />
+                        <div class="review-content">
+                            <h3> @review.companyName </h3>
+                            <div class="rating">
+                                @for (int i = 0; i < review.stars; i++)
+                                {
+                                    <i class="fa fa-star"></i>
+                                }
+                                @for (int i = review.stars; i < 5; i++)
+                                {
+                                    <i class="fa fa-star-o"></i>
+                                }
+                            </div>
+                            <p> @review.review </p>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div style="display:flex; justify-content:center; align-items:center; width: 100%">
+                    <h3 style="color: #111; text-align: center;">
+                        There are no reviews yet for this product.
+                    </h3>
+                </div>
+            }
+        </div>
+    </div>
+}

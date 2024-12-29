@@ -65,5 +65,39 @@ namespace Cartel_Search_Products.Controllers
 
             return View("Details", productDetails);
         }
+
+        public IActionResult Reviews(int productId = 0)
+        {
+            if (productId == 0)
+            {
+                return View("Reviews", null);
+            }
+
+            // Get Product By id
+            Product product;
+            using var connection = new MySqlConnection(_configuration.GetConnectionString("Default"));
+            ProductModel pm = new ProductModel(connection);
+            product = pm.getProductById(productId);
+            connection.Close();
+
+            if (product == null)
+            {
+                return View("Details", null);
+            }
+
+            // Get the Reviews
+            using var connection1 = new MySqlConnection(_configuration.GetConnectionString("Default"));
+            ReviewModel rm = new ReviewModel(connection1);
+            List<Review> reviews = rm.getProductReviews(product);
+            connection1.Close();
+
+            ProductDetailsModel productDetails = new ProductDetailsModel
+            {
+                Product = product,
+                Reviews = reviews
+            };
+
+            return View("Reviews", productDetails);
+        }
     }
 }
