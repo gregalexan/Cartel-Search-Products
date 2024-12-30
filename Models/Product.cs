@@ -15,5 +15,8 @@ namespace Cartel_Search_Products.Models
         
         [NotMapped]
         public int rating { get; set; }
+
+        [NotMapped]
+        public int quantity { get; set; } // The existing quantity in the cart
     }
 }

@@ -16,6 +16,36 @@
 }
 else
 {
+    @if (TempData["Success"] != null)
+    {
+        <div id="addedMessage" style="color: #3b8e72;
+                    background-color: #d2edd1;
+                    border: 2px solid #b2cdb1;
+                    padding: 15px;
+                    border-radius: 4px;
+                    text-align: center;
+                    margin-bottom: 20px;"
+            role="success">
+                            @TempData["Message"]
+            <span style="margin-bottom: 5px; top: 0; cursor: pointer;" class="close" id="closeMessage">&times;</span>
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div id="addedMessage" style="color: #a94442;
+                    background-color: #f2dede;
+                    border: 2px solid #ebccd1;
+                    padding: 15px;
+                    border-radius: 4px;
+                    text-align: center;
+                    margin-bottom: 20px;"
+             role="success">
+            @TempData["Error"]
+            <span style="margin-bottom: 5px; top: 0; cursor: pointer;" class="close" id="closeMessage">&times;</span>
+        </div>
+    }
+
     <div class="small-container single-product">
         <div class="row">
             <div class="col-2">
@@ -36,9 +66,22 @@ else
                 }
                 else
                 {
-                    <input type="number" id="quantityInput" name="quantity" value="1"/>
-                    <input type="hidden" value=@Model.Product.ProductID id="productId" />
-                    <a onclick="#" class="btn" style="cursor:pointer;">Add to Cart</a>
+                    <!-- Add to Cart Form -->
+                    <form method="post" action="/Cart/AddToCart" style="display:inline;">
+                        <!-- Input for Quantity -->
+                        <input type="number" id="quantityInput" name="quantity" value="1" min="1" max="@Model.Product.stock"
+                               style="width: 60px; margin-right: 10px;" />
+
+                        <!-- Hidden Input for Product ID -->
+                        <input type="hidden" name="productId" value="@Model.Product.ProductID" />
+
+                        <!-- Add to Cart Button -->
+                        <button type="submit" class="btn" style="cursor:pointer; padding: 8px 15px; background-color: #007bff; color: white; border: none; border-radius: 5px;">
+                            Add To Cart
+                        </button>
+                    </form>
+                    <a href="@Url.Action("ViewCart", "Cart")">View Cart</a>
+
                 }
                 <h3>Product Details <i class="fa fa-ident"></i></h3>
                 <br />
@@ -186,4 +229,12 @@ else
             }
         </div>
     </div>
+
+    // Scripts for the Close Message
+    <script>
+        const closeMessage = document.getElementById("closeMessage");
+        closeMessage.onclick = function () {
+            document.getElementById("addedMessage").style.display = "none";
+        };
+    </script>
 }

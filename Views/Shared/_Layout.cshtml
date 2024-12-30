@@ -53,7 +53,7 @@
                             </div>
                         </li>
 
-                        @if (ViewBag.CurrentUser != null)
+                        @if (User.Identity.IsAuthenticated)
                         {
                             <li>
                                 <button style="font-family: 'Times New Roman', Times, serif; font-size: 16px;" class="dropbtn btnCart btnLogIn" onclick="showAccountDropdown()">
@@ -66,11 +66,11 @@
                                     <a href="@Url.Action("MyProducts", "Products")">Products</a>
                                 </div>
                             </li>
-                            <li><a class="btnCart btnLogIn" href="@Url.Action("Logout", "Account")"><i class="fa fa-sign-out"></i> Log out</a></li>
+                            <li><a class="btnCart btnLogIn" href="@Url.Action("Logout", "Login")"><i class="fa fa-sign-out"></i> Log out</a></li>
                         }
                         else
                         {
-                            <li><a class="btnCart btnLogIn" href="@Url.Action("Login", "Account")"><i class="fa fa-sign-in"></i> Join Cartel</a></li>
+                            <li><a class="btnCart btnLogIn" href="@Url.Action("Join", "Login")"><i class="fa fa-sign-in"></i> Join Cartel</a></li>
                         }
 
                         <li>
@@ -92,15 +92,18 @@
         </main>
     </div>
 
-    <!-- Footer -->
-    <div class="footer">
-        <div class="container">
-            <h3>
-                &copy; 2024 Cartel<br>
-                All rights reserved.
-            </h3>
+    @if (ViewData["Title"]?.ToString().Equals("Cartel Logout Page") != true)
+    {
+        <!-- Footer -->
+        <div class="footer">
+            <div class="container">
+                <h3>
+                    &copy; 2024 Cartel<br>
+                    All rights reserved.
+                </h3>
+            </div>
         </div>
-    </div>
+    }
 
     <!-- Scripts -->
     <script src="~/js/main.js"></script>

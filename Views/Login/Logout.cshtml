@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Cartel Logout Page";
+    // Set the redirect URL
+    var redirectUrl = Url.Action("Index", "Home");
+}
+
+<div class="container" role="main" style="text-align: center; font-family: Arial, sans-serif;">
+    <div style="display: flex; justify-content: center; align-items: center; height: 50vh;">
+        <img src="~/images/Cartel.png" alt="Cartel Logo" style="border-radius: 8px; width: 200px; height: 200px;">
+    </div>
+    <div style="background-color: #d4edda; color: #155724; padding: 15px; border: 1px solid #c3e6cb; border-radius: 4px; text-align: center;">
+        Logout Successful
+    </div>
+</div>
+
+
+<script>
+    // Redirect after 2 seconds
+    setTimeout(function () {
+        window.location.href = '@redirectUrl';
+    }, 2000);
+</script>

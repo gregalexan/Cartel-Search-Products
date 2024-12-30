@@ -1,0 +1,83 @@
+﻿@{
+    ViewData["Title"] = "Join Cartel";
+    var errorMessage = TempData["ErrorMessage"] as string;
+}
+
+<div class="account-page">
+    @if (errorMessage != null)
+    {
+        <div style="color: #a94442;
+                                background-color: #f2dede;
+                                border: 1px solid #ebccd1;
+                                padding: 15px;
+                                border-radius: 4px;
+                                text-align: center;
+                                margin-bottom: 20px;"
+             role="alert">
+            @errorMessage
+        </div>
+    }
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <img src="~/images/Cartel.png" alt="Cartel Logo" style="width: 100%;" />
+            </div>
+            <div class="col-2">
+                <div class="form-container">
+                    <div class="form-btn">
+                        <span onclick="register()">Register</span>
+                        <span onclick="login()">Login</span>
+                        <hr id="Indicator" />
+                    </div>
+
+                    <!-- Login Form -->
+                    <form id="LoginForm" asp-action="Login" asp-controller="Login" method="post">
+                        <input type="text" name="Username" placeholder="Username" required />
+                        <input type="password" name="Password" placeholder="Password" required />
+                        <button type="submit" class="btn">Login</button>
+                        <a href="#">Forgot password</a>
+                        <div class="help">
+                            <strong>Help:</strong>
+                            <ul>
+                                <li>For Luxe Loom: luxeloom 1111</li>
+                                <li>For Paper Charm: paperCharm 2222</li>
+                            </ul>
+                        </div>
+                    </form>
+
+                    <!-- Register Form -->
+                    <form id="RegForm" asp-action="Register" asp-controller="Login" method="post">
+                        <input type="text" name="CompanyName" placeholder="Company name" required />
+                        <input type="email" name="Email" placeholder="Email" required />
+                        <input type="text" name="SSN" placeholder="Company SSN" required />
+                        <input type="text" name="Username" placeholder="Username" required />
+                        <input type="password" name="Password" placeholder="Password" required />
+                        <input type="password" name="ConfirmPassword" placeholder="Confirm password" required />
+                        <label class="checkbox-inline">
+                            <input type="checkbox" id="conditions" name="Conditions" required /> I agree to the terms and conditions
+                        </label>
+                        <button type="submit" class="btn">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var LoginForm = document.getElementById("LoginForm");
+    var RegForm = document.getElementById("RegForm");
+    var Indicator = document.getElementById("Indicator");
+
+    function register() {
+        LoginForm.style.transform = "translateX(400px)";
+        RegForm.style.transform = "translateX(400px)";
+        Indicator.style.transform = "translateX(0px)";
+    }
+
+    function login() {
+        LoginForm.style.transform = "translateX(0px)";
+        RegForm.style.transform = "translateX(0px)";
+        Indicator.style.transform = "translateX(100px)";
+    }
+</script>
