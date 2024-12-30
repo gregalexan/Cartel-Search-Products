@@ -24,15 +24,71 @@ namespace Cartel_Search_Products.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(User user)
+        public async Task<IActionResult> Register(string companyName, string email, string ssn, string username, string password, string confirmPassword, string conditions)
         {
-            if (ModelState.IsValid)
+            // Validate all inputs
+            if (!(companyName.Length > 0 & email.Length > 0 & ssn.Length == 9 & username.Length >= 4 & password.Length >= 8 & confirmPassword.Equals(password) & conditions != null))
             {
-                _context.User.Add(user);
-                _context.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                TempData["errorMessage"] = "There are errors in the register form";
+                return View("Join");
             }
-            return View(user);
+            
+            using var connection = new MySqlConnection(_configuration.GetConnectionString("Default"));
+            UserModel um = new UserModel(connection);
+
+            try
+            {
+                User user = new User
+                {
+                    name = companyName,
+                    email = email,
+                    ssn = ssn,
+                    username = username,
+                    password = password,
+                    joined = DateTime.Now,
+                };
+                bool registered = um.Register(user);
+
+
+
+                if (registered)
+                {
+                    // Create claims for the user
+                    var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.username),
+                new Claim(ClaimTypes.Email, user.email),
+                // Add any other claims you need
+            };
+
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var principal = new ClaimsPrincipal(identity);
+
+                    // Sign in the user
+                    await HttpContext.SignInAsync(
+                        CookieAuthenticationDefaults.AuthenticationScheme,
+                        principal,
+                        new AuthenticationProperties
+                        {
+                            IsPersistent = true, // This will make the cookie persistent
+                            ExpiresUtc = DateTime.UtcNow.AddDays(30) // Cookie will expire in 30 days
+                        });
+
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    TempData["errorMessage"] = "Something went wrong...";
+                    return View("Join");
+                }
+
+            } catch (Exception ex)
+            {
+                TempData["errorMessage"] = ex.Message;
+                return View("Join");
+            }
+
+
         }
 
 
