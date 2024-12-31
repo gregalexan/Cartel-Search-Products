@@ -156,11 +156,11 @@ else
             }
             @if (Model.Reviews.Count == 0)
             {
-                <a href="#" class="btn">Add the first review</a>
+                <a href="@Url.Action("AddReview", "Product", new {productId = Model.Product.ProductID})" class="btn">Add the first review</a>
             }
             else
             {
-                <a href="#" class="btn">Add your own review</a>
+                <a href="@Url.Action("AddReview", "Product", new {productId = Model.Product.ProductID})" class="btn">Add your own review</a>
             }
         </div>
     </div>

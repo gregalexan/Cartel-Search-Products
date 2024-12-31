@@ -843,7 +843,7 @@ form a{
 .review-page {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    gap: 50px;
     margin-bottom: 25px;
 }
 .review-page-img {
@@ -862,7 +862,7 @@ form a{
     margin-bottom: 40px;
 }
 .review-page .review-product {
-    padding: 50px 60px;
+    padding: 20px 0;
     display: block;
     justify-content: center;
     align-items: center;

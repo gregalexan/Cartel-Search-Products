@@ -1,0 +1,73 @@
+﻿@model Cartel_Search_Products.Models.Product;
+
+@{
+    ViewData["Title"] = "Leave Review";
+}
+
+@if (Model == null)
+{
+    <div style="text-align: center; margin-top: 100px;">
+        <img src="~/images/Cartel.png" width="150" height="150" />
+    </div>
+    <div style="padding: 15px; background-color: #F4E8C1; color: white; border: 2px solid #e5bf6b; border-radius: 5px; font-family: 'Times New Roman', Times, serif, sans-serif; font-size: 16px; text-align: center; width: 100%; margin-top: 50px; margin-bottom: 250px;">
+        Please choose a valid product.
+    </div>
+}
+else
+{
+    @if (User.Identity.IsAuthenticated)
+    {
+        <!-- Review Product -->
+        <div class="review-page">
+            <div class="review-page-img">
+                <img src="@Url.Content($"~/{Model.image}")" alt="">
+                <h3>@Model.productName</h3>
+            </div>
+            <div class="review-product">
+                <h1>Leave a Review</h1>
+                <p>Your review is really valuable. Thanks for leaving one!</p>
+                <form action="#" method="POST">
+                    <!-- Hidden Input to Pass Product ID -->
+                    <input type="hidden" name="productId" value="@Model.ProductID">
+                    <input type="hidden" name="companyName" value="@User.Identity.Name">
+                    <div class="rating">
+                        <!-- 5th Star -->
+                        <input type="radio" name="rating" id="r5" value="5">
+                        <label for="r5"></label>
+                        <!-- 4th Star -->
+                        <input type="radio" name="rating" id="r4" value="4">
+                        <label for="r4"></label>
+                        <!-- 3rd Star -->
+                        <input type="radio" name="rating" id="r3" value="3">
+                        <label for="r3"></label>
+                        <!-- 2nd Star -->
+                        <input type="radio" name="rating" id="r2" value="2">
+                        <label for="r2"></label>
+                        <!-- 1st Star -->
+                        <input type="radio" name="rating" id="r1" value="1">
+                        <label for="r1"></label>
+                    </div>
+
+                    <!-- Text Area -->
+                    <div class="text-class">
+                        <textarea class="text-box" name="reviewMessage" placeholder="Enter a message for us..."></textarea>
+                    </div>
+                    <!-- End Text Area -->
+                    <!-- 2 buttons: Submit or Cancel -->
+                    <div class="buttons-after" style="display:flex; gap:35px;">
+                        <a href="@Url.Action("Details", "Product", new {productid = Model.ProductID})" class="btn">
+                            Cancel
+                        </a>
+                        <a type="submit"
+                                aria-label="Submit"
+                                class="btn btn-primary">
+                            Submit
+                        </a>
+                    </div>
+                    <!-- End Submit or Cancel -->
+                </form>
+            </div>
+        </div>
+        <!-- End Review Product -->
+    }
+}

@@ -99,5 +99,31 @@ namespace Cartel_Search_Products.Controllers
 
             return View("Reviews", productDetails);
         }
+
+        public IActionResult AddReview(int productId = 0)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                TempData["ErrorMessage"] = "You have to log in to post a review";
+                return RedirectToAction("Join", "Login"); // Redirect to the login page
+            }
+            if (productId == 0)
+            {
+                return View("AddReview", null);
+            }
+            // Get Product By id
+            Product product;
+            using var connection = new MySqlConnection(_configuration.GetConnectionString("Default"));
+            ProductModel pm = new ProductModel(connection);
+            product = pm.getProductById(productId);
+            connection.Close();
+
+            if (product == null)
+            {
+                return View("AddReview", null);
+            }
+
+            return View("AddReview", product);
+        }
     }
 }

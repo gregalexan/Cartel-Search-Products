@@ -125,7 +125,6 @@ namespace Cartel_Search_Products.Controllers
                             IsPersistent = true, // This will make the cookie persistent
                             ExpiresUtc = DateTime.UtcNow.AddDays(30) // Cookie will expire in 30 days
                         });
-
                     return RedirectToAction("Index", "Home");
                 }
 
