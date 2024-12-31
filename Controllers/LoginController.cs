@@ -9,7 +9,6 @@ namespace Cartel_Search_Products.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly AppDbContext _context;
 
         private readonly IConfiguration _configuration;
         public LoginController(IConfiguration configuration)

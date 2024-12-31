@@ -1,10 +1,77 @@
-﻿@model List<Product>
+﻿@model Cartel_Search_Products.Models.CartModel;
 
 @{
-    ViewData["Title"] = "Product Details";
+    ViewData["Title"] = "My Cart";
 }
 
-@foreach (var product in Model)
-{
-    <h1>@product.ProductID</h1>
-}
+<!-- Cart Items Details -->
+<div class="small-container cart-page">
+    <div class="cart-page-buttons">
+        <div class="cart-page-button">
+            <a href="@Url.Action("Index", "Home")" class="btnCart btnLogIn">
+                Browse more Products
+            </a>
+        </div>
+        @if (Model.cart.Count > 0)
+        {
+            <div class="cart-page-button">
+                <a href="#" class="btnCart btnLogIn">
+                    Proceed to Checkout
+                </a>
+            </div>
+        }
+    </div>
+    @if (Model.cart.Count > 0)
+    {
+        <table>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+            </tr>
+            @foreach (var product in Model.cart)
+            {
+                <tr>
+                    <td>
+                        <div class="cart-info">
+                            <img src="@Url.Content($"~/{product.image}")" />
+                            <div>
+                                <p>@product.productName</p>
+                                <small>Price: @product.price</small>
+                                <br />
+                                <a href="@Url.Action("RemoveFromCart", "Cart", new { id = product.ProductID})">Remove </a>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        @product.quantity
+                    </td>
+                    <td>@(@product.price * @product.quantity)</td>
+                </tr>
+            }
+        </table>
+        <div class="total-price">
+            <table>
+                <tr>
+                    <td>Subtotal</td>
+                    <td>$ @Model.getSubtotal()</td>
+                </tr>
+                <tr>
+                    <td>Tax</td>
+                    <td>$ @Model.getTax()</td>
+                </tr>
+                <tr>
+                    <td>Total</td>
+                    <td>$ @Model.getTotal()</td>
+                </tr>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div style="text-align:center;">
+            <h1 style="color: #3b8e72;">You have nothing in your cart</h1>
+            <img src="~/images/empty-cart.png" style="align: center; margin-top: 30px; margin-bottom: 30px;">
+        </div>
+    }
+</div>

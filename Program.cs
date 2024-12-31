@@ -23,14 +23,6 @@ builder.Services.AddSession(options =>
 builder.Services.AddTransient<MySqlConnection>(_ =>
     new MySqlConnection(builder.Configuration.GetConnectionString("Default")));
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-{
-    var connectionString = builder.Configuration.GetConnectionString("Default");
-    var serverVersion = ServerVersion.AutoDetect(connectionString);
-    options.UseMySql(connectionString, serverVersion);
-});
-
-
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
@@ -59,7 +51,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-
+app.UseAuthentication();
+app.UseAuthorization();
 
 
 
@@ -72,6 +65,12 @@ app.MapControllerRoute(
     name: "login",
     pattern: "{controller=Login}/{action=Login}/{id?}");
 
+
+app.MapControllerRoute(
+    name: "cart",
+    pattern: "Cart/{action=ViewCart}/{id?}",
+    defaults: new { controller = "Cart" }
+);
 
 
 app.Run();
