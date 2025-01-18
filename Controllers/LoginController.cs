@@ -21,7 +21,7 @@ namespace Cartel_Search_Products.Controllers
         {
             return View("Join");
         }
-
+        /* Gets the inputs from the register form and calls the model to register user */
         [HttpPost]
         public async Task<IActionResult> Register(string companyName, string email, string ssn, string username, string password, string confirmPassword, string conditions)
         {
@@ -137,7 +137,7 @@ namespace Cartel_Search_Products.Controllers
                 return View("Join");
             }
         }
-
+        /* Logout and clear session */
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

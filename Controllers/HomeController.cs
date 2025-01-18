@@ -11,7 +11,10 @@ namespace Cartel_Search_Products.Controllers
         {
             _configuration = configuration;
         }
-
+        /* Fetches the products from the database and redirects user to homepage 
+           Also, filters the products by search queries, category, sorting.
+           The Pagination logic happens here
+        */
         [HttpGet]
         [HttpPost]
         public IActionResult Index(string search = "all", string category = "all", string sort = "default", int page = 0, int itemsPerPage = 8)
@@ -61,7 +64,7 @@ namespace Cartel_Search_Products.Controllers
 
             return View("Index", products);
         }
-
+        /* Redirect user to about cartel page */
         public IActionResult About()
         {
             return View("About");

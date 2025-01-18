@@ -12,6 +12,7 @@ namespace Cartel_Search_Products.Controllers
         {
             _configuration = configuration;
         }
+        /* Redirect to product details based on the product user chose on the home page */
         public IActionResult Details(int productId = 0)
         {
             Product product = null;
@@ -55,7 +56,7 @@ namespace Cartel_Search_Products.Controllers
                     break;
                 }
             }
-
+            /* I think it is easier with this custom model */
             var productDetails = new ProductDetailsModel
             {
                 Product = product,
@@ -65,7 +66,7 @@ namespace Cartel_Search_Products.Controllers
 
             return View("Details", productDetails);
         }
-
+        /* Redirects to the product full reviews view based on the product user chose */
         public IActionResult Reviews(int productId = 0)
         {
             if (productId == 0)
@@ -82,7 +83,7 @@ namespace Cartel_Search_Products.Controllers
 
             if (product == null)
             {
-                return View("Details", null);
+                return View("Reviews", null);
             }
 
             // Get the Reviews
@@ -99,7 +100,7 @@ namespace Cartel_Search_Products.Controllers
 
             return View("Reviews", productDetails);
         }
-
+        /* Details page, user clicks to add a review -> redirect to AddReview view */
         public IActionResult AddReview(int productId = 0)
         {
             if (!User.Identity.IsAuthenticated)
@@ -124,6 +125,30 @@ namespace Cartel_Search_Products.Controllers
             }
 
             return View("AddReview", product);
+        }
+        /* Get the inputs from the review form and call the ReviewModel to post it to the database */
+        public IActionResult PostReview(int productID = 0, string companyName = null, int stars = 0, string review = "")
+        { 
+            if (productID == 0 || companyName == null || stars == 0)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            Review rev = new Review
+            {
+                productID = productID,
+                companyName = companyName,
+                stars = stars,
+                review = review
+            };
+
+            Product product = null;
+
+            // Get the product object
+            using var connection = new MySqlConnection(_configuration.GetConnectionString("Default"));
+            ReviewModel rm = new ReviewModel(connection);
+            rm.postReview(rev);
+
+            return RedirectToAction("Details", "Product", new { productid = rev.productID });
         }
     }
 }

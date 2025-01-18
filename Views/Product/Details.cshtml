@@ -1,9 +1,7 @@
-﻿@model Cartel_Search_Products.Models.ProductDetailsModel;
-
+﻿@model Cartel_Search_Products.Models.ProductDetailsModel; // Custom model for product details
 @{
     ViewData["Title"] = "Product Details";
 }
-
 @if (Model == null)
 {
     <div style="text-align: center; margin-top: 100px;">
@@ -18,34 +16,18 @@ else
 {
     @if (TempData["Success"] != null)
     {
-        <div id="addedMessage" style="color: #3b8e72;
-                    background-color: #d2edd1;
-                    border: 2px solid #b2cdb1;
-                    padding: 15px;
-                    border-radius: 4px;
-                    text-align: center;
-                    margin-bottom: 20px;"
-            role="success">
-                            @TempData["Success"]
+        <div class="successmessage" id="addedMessage" role="success">
+            @TempData["Success"]
             <span style="margin-bottom: 5px; top: 0; cursor: pointer;" class="close" id="closeMessage">&times;</span>
         </div>
     }
-
     @if (TempData["Error"] != null)
     {
-        <div id="addedMessage" style="color: #a94442;
-                    background-color: #f2dede;
-                    border: 2px solid #ebccd1;
-                    padding: 15px;
-                    border-radius: 4px;
-                    text-align: center;
-                    margin-bottom: 20px;"
-             role="success">
+        <div id="addedMessage" class="errormessage">
             @TempData["Error"]
             <span style="margin-bottom: 5px; top: 0; cursor: pointer;" class="close" id="closeMessage">&times;</span>
         </div>
     }
-
     <div class="small-container single-product">
         <div class="row">
             <div class="col-2">
@@ -66,17 +48,12 @@ else
                 }
                 else
                 {
-                    <!-- Add to Cart Form -->
-                    <form method="post" action="@Url.Action("AddToCart", "Cart")" style="display: flex;gap: 35px; margin-bottom: 15px;">
-                        <!-- Input for Quantity -->
+                    <form method="post" action="@Url.Action("AddToCart", "Cart")" style="display: flex;gap: 35px; margin-bottom: 15px;"> <!-- Add to Cart Form -->
                         <input type="number" id="quantity" name="quantity" value="1" min="1" max="@Model.Product.stock"
-                               style="width: 60px; margin-right: 10px;" />
-
-                        <!-- Hidden Input for Product ID -->
-                        <input type="hidden" name="productId" value="@Model.Product.ProductID" />
-
-                        <!-- Add to Cart Button -->
+                               style="width: 60px; margin-right: 10px;" /> <!-- Input for Quantity -->
+                        <input type="hidden" name="productId" value="@Model.Product.ProductID" /> <!-- Hidden Input for Product ID -->
                         <button type="submit" class="btn" style="cursor:pointer;">
+                            <!-- Add to Cart Button -->
                             Add To Cart
                         </button>
                     </form>
@@ -86,10 +63,8 @@ else
                 <p>@Model.Product.description</p>
             </div>
         </div>
-    </div>
-
-    // Reviews 
-    <div class="small-container reviews">
+    </div> 
+    <div class="small-container reviews"> <!-- Reviews -->
         <div class="row row-2">
             <h2>Reviews</h2>
             @if (Model.Reviews.Count > 0 & Model.Reviews.Count > 3)
@@ -164,9 +139,7 @@ else
             }
         </div>
     </div>
-
-    // Related Products
-    <div class="small-container related-products">
+    <div class="small-container related-products"> <!-- Related Products -->
         <div class="row row-2">
             <h2>Related Products</h2>
             @if (Model.Related.Count > 0 & Model.Related.Count > 4)
@@ -228,10 +201,8 @@ else
             }
         </div>
     </div>
-
-    // Scripts for the Close Message
     <script>
-        const closeMessage = document.getElementById("closeMessage");
+        const closeMessage = document.getElementById("closeMessage"); // Scripts for the Close Message
         closeMessage.onclick = function () {
             document.getElementById("addedMessage").style.display = "none";
         };

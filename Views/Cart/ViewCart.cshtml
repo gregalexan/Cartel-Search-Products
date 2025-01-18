@@ -1,9 +1,7 @@
 ﻿@model Cartel_Search_Products.Models.CartModel;
-
 @{
     ViewData["Title"] = "My Cart";
 }
-
 <!-- Cart Items Details -->
 <div class="small-container cart-page">
     <div class="cart-page-buttons">
@@ -12,7 +10,7 @@
                 Browse more Products
             </a>
         </div>
-        @if (Model.cart.Count > 0)
+        @if (Model.cart.Count > 0) @* Show the option to checkout only if user chose something *@
         {
             <div class="cart-page-button">
                 <a href="#" class="btnCart btnLogIn">

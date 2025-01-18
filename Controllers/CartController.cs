@@ -14,11 +14,12 @@ namespace Cartel_Search_Products.Controllers
         {
             _configuration = configuration;
         }
+        /* Gets the cart from the session */
         private List<Product> GetCart()
         {
             return HttpContext.Session.Get<List<Product>>(CartSessionKey) ?? new List<Product>();
         }
-
+        /* Redirects user to ViewCart view */
         public IActionResult Index()
         {
             var cart = GetCart();
@@ -26,15 +27,13 @@ namespace Cartel_Search_Products.Controllers
             {
                 cart = cart
             };
-
             return View("ViewCart", cartModel);
         }
-
+        /* Adds a product to the cart */
         [HttpPost]
         public IActionResult AddToCart(int productId, int quantity)
         {
             var cart = GetCart();
-
             // Get the product object
             using var connection = new MySqlConnection(_configuration.GetConnectionString("Default"));
             ProductModel pm = new ProductModel(connection);
@@ -72,7 +71,7 @@ namespace Cartel_Search_Products.Controllers
             TempData["Success"] = $"Product: {product.productName} added to cart successfully!";
             return RedirectToAction("Details", "Product", new { productId = product.ProductID });
         }
-
+        /* Removes a product from the cart */
         public IActionResult RemoveFromCart(int id)
         {
             var cart = GetCart();

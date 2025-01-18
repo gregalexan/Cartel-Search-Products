@@ -2,8 +2,6 @@
 @{
     ViewData["Title"] = "Product Reviews";
 }
-
-
 @if (Model == null)
 {
     <div style="text-align: center; margin-top: 100px;">
@@ -12,12 +10,10 @@
     <div style="padding: 15px; background-color: #F4E8C1; color: white; border: 2px solid #e5bf6b; border-radius: 5px; font-family: 'Times New Roman', Times, serif, sans-serif; font-size: 16px; text-align: center; width: 100%; margin-top: 50px; margin-bottom: 250px;">
         Please choose a valid product.
     </div>
-
 }
 else
 {
-    <!-- Profile Section -->
-    <div class="small-container single-product">
+    <div class="small-container single-product"> <!-- Profile Section -->
         <div class="row">
             <div class="col-2">
                 <img src="@Url.Content($"~/{Model.Product.image}")" width="100%" />
@@ -39,8 +35,7 @@ else
             </div>
         </div>
     </div>
-    <!-- Reviews -->
-    <div class="small-container reviews" style="margin-bottom: 150px;">
+    <div class="small-container reviews" style="margin-bottom: 150px;"> <!-- Reviews -->
         <div class="row row-2">
             <h2>Reviews</h2>
         </div>

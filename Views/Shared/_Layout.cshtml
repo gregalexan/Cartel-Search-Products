@@ -13,8 +13,7 @@
     }
 </head>
 <body>
-    <!-- Navbar-->
-    <header>
+    <header> <!-- Navbar-->
         <div class="container">
             <div class="navbar">
                 <div class="logo">
@@ -22,12 +21,10 @@
                         <img src="~/Images/Cartel.png" width="125px" alt="Logo">
                     </a>
                 </div>
-
                 <!-- Hamburger menu for mobile -->
                 <div class="hamburger-menu" onclick="toggleMobileMenu()">
                     &#9776; <!-- Hamburger icon -->
                 </div>
-
                 <nav>
                     <ul class="MenuItems">
                         <div class="menu-items-home-about">
@@ -52,7 +49,7 @@
                                 <a href="@Url.Action("Index", "Home", new { category = "Lighting" })">Lighting</a>
                             </div>
                         </li>
-
+                        <!-- If user is logged in -->
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li>
@@ -72,7 +69,6 @@
                         {
                             <li><a class="btnCart btnLogIn" href="@Url.Action("Join", "Login")"><i class="fa fa-sign-in"></i> Join Cartel</a></li>
                         }
-
                         <li>
                             <a href="@Url.Action("Index", "Cart")" class="btnCart">
                                 <img src="~/Images/shopping_cart.png" width="20px" height="20px" alt="Cart">
@@ -84,14 +80,13 @@
         </div> <!-- End Container -->
         <!-- End of Navbar -->
     </header>
-
     <!-- Main -->
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-
+    <!-- Do not show the footer in the logout page-->
     @if (ViewData["Title"]?.ToString().Equals("Cartel Logout Page") != true)
     {
         <!-- Footer -->
@@ -104,7 +99,6 @@
             </div>
         </div>
     }
-
     <!-- Scripts -->
     <script src="~/js/main.js"></script>
     <script src="~/js/dropdowns.js"></script>

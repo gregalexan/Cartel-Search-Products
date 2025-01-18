@@ -2,18 +2,10 @@
     ViewData["Title"] = "Join Cartel";
     var errorMessage = TempData["ErrorMessage"] as string;
 }
-
 <div class="account-page">
-    @if (errorMessage != null)
+    @if (errorMessage != null) @* Example usage: User tries to post a review and he/she isn't logged in -> redirect to login / register *@
     {
-        <div style="color: #a94442;
-                                background-color: #f2dede;
-                                border: 1px solid #ebccd1;
-                                padding: 15px;
-                                border-radius: 4px;
-                                text-align: center;
-                                margin-bottom: 20px;"
-             role="alert">
+        <div style="color: #a94442; background-color: #f2dede; border: 1px solid #ebccd1; padding: 15px; border-radius: 4px; text-align: center; margin-bottom: 20px;" role="alert">
             @errorMessage
         </div>
     }
@@ -29,7 +21,6 @@
                         <span onclick="login()">Login</span>
                         <hr id="Indicator" />
                     </div>
-
                     <!-- Login Form -->
                     <form id="LoginForm" asp-action="Login" asp-controller="Login" method="post">
                         <input type="text" name="Username" placeholder="Username" required />
@@ -44,7 +35,6 @@
                             </ul>
                         </div>
                     </form>
-
                     <!-- Register Form -->
                     <form id="RegForm" asp-action="Register" asp-controller="Login" method="post">
                         <input type="text" name="CompanyName" placeholder="Company name" required />
@@ -57,27 +47,18 @@
                             <input type="checkbox" id="conditions" name="Conditions" required /> I agree to the terms and conditions
                         </label>
                         <button type="submit" class="btn">Register</button>
+                        <div style="background: #d2edd1; text-align:center; justify-content: space-evenly; color: var(--primary-color); border-radius: 4px;">
+                            <strong>Rules</strong>
+                            <br />
+                            <h5>SSN must be 9 numeric characters long</h5>
+                            <h5>Username must be at least 4 characters</h5>
+                            <h5 style="margin-bottom: 5px;">Password must be at least 8 characters</h5>
+                            <br />
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-    var LoginForm = document.getElementById("LoginForm");
-    var RegForm = document.getElementById("RegForm");
-    var Indicator = document.getElementById("Indicator");
-
-    function register() {
-        LoginForm.style.transform = "translateX(400px)";
-        RegForm.style.transform = "translateX(400px)";
-        Indicator.style.transform = "translateX(0px)";
-    }
-
-    function login() {
-        LoginForm.style.transform = "translateX(0px)";
-        RegForm.style.transform = "translateX(0px)";
-        Indicator.style.transform = "translateX(100px)";
-    }
-</script>
+<script src="~/js/join.js"></script>

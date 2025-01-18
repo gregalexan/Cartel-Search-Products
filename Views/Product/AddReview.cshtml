@@ -1,9 +1,7 @@
 ﻿@model Cartel_Search_Products.Models.Product;
-
 @{
     ViewData["Title"] = "Leave Review";
 }
-
 @if (Model == null)
 {
     <div style="text-align: center; margin-top: 100px;">
@@ -15,10 +13,9 @@
 }
 else
 {
-    @if (User.Identity.IsAuthenticated)
+    @if (User.Identity.IsAuthenticated) @* User is logged in *@
     {
-        <!-- Review Product -->
-        <div class="review-page">
+        <div class="review-page"> <!-- Review Product -->
             <div class="review-page-img">
                 <img src="@Url.Content($"~/{Model.image}")" alt="">
                 <h3>@Model.productName</h3>
@@ -26,48 +23,34 @@ else
             <div class="review-product">
                 <h1>Leave a Review</h1>
                 <p>Your review is really valuable. Thanks for leaving one!</p>
-                <form action="#" method="POST">
-                    <!-- Hidden Input to Pass Product ID -->
-                    <input type="hidden" name="productId" value="@Model.ProductID">
-                    <input type="hidden" name="companyName" value="@User.Identity.Name">
+                <form action="@Url.Action("PostReview", "Product")" method="post">
+                    <input type="hidden" name="productID" value="@Model.ProductID"> <!-- Hidden Input to Pass Product ID -->
+                    <input type="hidden" name="companyName" value="@User.Identity.Name"> <!-- Hidden Input to Pass Company Name -->
                     <div class="rating">
-                        <!-- 5th Star -->
-                        <input type="radio" name="rating" id="r5" value="5">
+                        <input type="radio" name="stars" id="r5" value="5"> <!-- 5th Star -->
                         <label for="r5"></label>
-                        <!-- 4th Star -->
-                        <input type="radio" name="rating" id="r4" value="4">
+                        <input type="radio" name="stars" id="r4" value="4"> <!-- 4th Star -->
                         <label for="r4"></label>
-                        <!-- 3rd Star -->
-                        <input type="radio" name="rating" id="r3" value="3">
+                        <input type="radio" name="stars" id="r3" value="3"> <!-- 3rd Star -->
                         <label for="r3"></label>
-                        <!-- 2nd Star -->
-                        <input type="radio" name="rating" id="r2" value="2">
+                        <input type="radio" name="stars" id="r2" value="2"> <!-- 2nd Star -->
                         <label for="r2"></label>
-                        <!-- 1st Star -->
-                        <input type="radio" name="rating" id="r1" value="1">
+                        <input type="radio" name="stars" id="r1" value="1"> <!-- 1st Star -->
                         <label for="r1"></label>
                     </div>
-
-                    <!-- Text Area -->
-                    <div class="text-class">
-                        <textarea class="text-box" name="reviewMessage" placeholder="Enter a message for us..."></textarea>
-                    </div>
-                    <!-- End Text Area -->
-                    <!-- 2 buttons: Submit or Cancel -->
-                    <div class="buttons-after" style="display:flex; gap:35px;">
-                        <a href="@Url.Action("Details", "Product", new {productid = Model.ProductID})" class="btn">
+                    <div class="text-class"> <!-- Text Area for the review description -->
+                        <textarea class="text-box" name="review" placeholder="Enter a message for us..."></textarea>
+                    </div> <!-- End Text Area -->
+                    <div class="buttons-after" style="display:flex; gap:35px;"> <!-- 2 buttons: Submit or Cancel -->
+                        <button href="@Url.Action("Details", "Product", new {productid = Model.ProductID})" class="btn">
                             Cancel
-                        </a>
-                        <a type="submit"
-                                aria-label="Submit"
-                                class="btn btn-primary">
+                        </button>
+                        <button type="submit" aria-label="Submit" class="btn btn-primary">
                             Submit
-                        </a>
-                    </div>
-                    <!-- End Submit or Cancel -->
+                        </button>
+                    </div> <!-- End Submit or Cancel -->
                 </form>
             </div>
-        </div>
-        <!-- End Review Product -->
+        </div> <!-- End Review Product -->
     }
 }

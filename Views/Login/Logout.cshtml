@@ -1,9 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Cartel Logout Page";
-    // Set the redirect URL
-    var redirectUrl = Url.Action("Index", "Home");
+    var redirectUrl = Url.Action("Index", "Home"); // Set the redirect URL
 }
-
 <div class="container" role="main" style="text-align: center; font-family: Arial, sans-serif;">
     <div style="display: flex; justify-content: center; align-items: center; height: 50vh;">
         <img src="~/images/Cartel.png" alt="Cartel Logo" style="border-radius: 8px; width: 200px; height: 200px;">
@@ -12,11 +10,8 @@
         Logout Successful
     </div>
 </div>
-
-
 <script>
-    // Redirect after 2 seconds
-    setTimeout(function () {
+    setTimeout(function () { // Redirect after 2 seconds
         window.location.href = '@redirectUrl';
     }, 2000);
 </script>

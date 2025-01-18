@@ -2,6 +2,7 @@
 
 namespace Cartel_Search_Products.Models
 {
+    /* Model to represent the products */
     public class Product
     {
         public int ProductID { get; set; }

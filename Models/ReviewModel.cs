@@ -1,8 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using MySqlConnector;
 
 namespace Cartel_Search_Products.Models
 {
+    // Equivalent ReviewService.java 
     public class ReviewModel
     {
         private readonly MySqlConnection _connection;
@@ -53,6 +55,35 @@ namespace Cartel_Search_Products.Models
                 }
             }
             return reviews;
+        }
+
+        // Post Review to Database
+        [HttpPost]
+        public void postReview(Review review)
+        {
+            Console.WriteLine($"ProductID: {review.productID}");
+            Console.WriteLine($"CompanyName: {review.companyName}");
+            Console.WriteLine($"Stars: {review.stars}");
+            Console.WriteLine($"Review: {review.review}");
+
+            using (_connection)
+            {
+                _connection.Open();
+
+                // Query to post the review
+                string query = "INSERT INTO reviews (stars, review, productID, username)" +
+                    "VALUES (@stars, @review, @productID, @username);";
+
+                using (MySqlCommand command = new MySqlCommand(query, _connection))
+                {
+                    command.Parameters.AddWithValue("@stars", review.stars);
+                    command.Parameters.AddWithValue("@review", review.review);
+                    command.Parameters.AddWithValue("@productID", review.productID);
+                    command.Parameters.AddWithValue("@username", review.companyName);
+
+                    command.ExecuteNonQuery();
+                }
+            }
         }
 
     }

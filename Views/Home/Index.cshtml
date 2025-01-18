@@ -5,7 +5,6 @@
     int totalPages = ViewBag.TotalPages;
     ViewData["pagination"] = "pagination.css";
 }
-
 <div class="small-container">
     <div class="row row-2">
         <h2>All Products</h2>
@@ -24,6 +23,7 @@
         <div class="filters">
             <form method="get" action="">
                 <select name="sort" id="sort-options" onchange="this.form.submit()">
+                    <!-- If statement to show the correct option as selected based on what user chose -->
                     @if (Context.Request.Query["sort"] == "default")
                     {
                         <option value="default" selected>Default Sorting</option>
@@ -54,7 +54,6 @@
             </form>
         </div> <!-- End Filters -->
     </div>
-
     <!-- Product List -->
     <div class="row" id="product-list">
         @if (Model.Count > 0)
@@ -83,11 +82,11 @@
                     }
                 </div>
             }
-
         }
         else
         {
             <div style="text-align: center;">
+                <!-- if the search query is the default then do not show it -->
                 @if (@Context.Request.Query["search"].ToString().Equals("all") == true)
                 {
                     <h3>No products found</h3>
@@ -100,13 +99,10 @@
             </div>
         }
     </div>
-
-
     <!-- Pagination -->
     @if (Model.Count > 0)
     {
         <div class="pagination-controls" style="text-align: center; margin-top: 20px; margin-bottom: 50px;">
-
             @* If the current page is greater than 0 (not the first page), show the "Back" button *@
             @if (currentPage > 0)
             {
@@ -116,12 +112,10 @@
                     Back
                 </a>
             }
-
             @* Display the current page number *@
             <span id="page-number" class="page-number">
                 Page @(currentPage + 1)
             </span>
-
             @* If there are more pages (i.e., the current page is not the last page), show the "Next" button *@
             @if (currentPage < totalPages - 1)
             {
@@ -133,6 +127,4 @@
             }
         </div>
     }
-
 </div>
-

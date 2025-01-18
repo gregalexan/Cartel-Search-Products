@@ -389,7 +389,7 @@ select:focus{
     background: var(--primary-color);
     color: var(--white-color);
 }
-/*--- single product details page---*/
+/*--- single product details page ---*/
 .single-product{
     margin-top: 60px;
     margin-bottom: 30px;
@@ -584,10 +584,10 @@ form input{
     border-radius: 4px;
     padding: 15px;
     margin-bottom: 20px;
-    font-family:'Times New Roman';
+    font-family: 'Times New Roman';
     font-size: 14px;
 }
-#LoginForm .help strong, #regLoginForm .help strong {
+#LoginForm .help strong, #regLoginForm .help strong{
     font-weight: bold;
 }
 #LoginForm .help ul, #regLoginForm .help ul {
@@ -599,7 +599,6 @@ form input{
     margin-bottom: 5px;
     line-height: 1.5;
 }
-
 #regRegForm .register-error {
     margin: 0;
     font-family: 'Times New Roman';
@@ -721,7 +720,6 @@ form a{
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
     border-radius: 15px;
-    /* ** */
     max-height: 250px; /* Set a max height for the dropdown */
     overflow-y: auto; /* Add a vertical scrollbar if content overflows */
 }
@@ -735,8 +733,6 @@ form a{
 }
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {
-    /* background-color: #ddd; */
-    /* border-radius: 15px; */
     color: var(--primary-color);
 }
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
@@ -745,7 +741,6 @@ form a{
 .dropdown-content::-webkit-scrollbar {
     width: 10px; /* Width of the scrollbar */
 }
-
 .dropdown-content::-webkit-scrollbar-thumb {
     background-color: #888; /* Default scrollbar thumb color */
     border-radius: 5px; /* Rounded corners */
@@ -926,388 +921,7 @@ form a{
     color: var(--primary-color);
     font-size: 30px;
 }
-/* Checkout Page Styling */
-.checkout {
-    max-width: 950px;
-    margin: 35px auto;
-    padding: 20px;
-    background-color: var(--background-color);
-    border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(45, 42, 42, 0.1);
-}
-.checkout h1 {
-    color: var(--primary-color);
-    margin-bottom: 20px;
-    text-align: center;
-}
-.checkout h2 {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-.checkout .container {
-    background-color: var(--white-color);
-    border: 1.5px solid var(--primary-color);
-}
-.checkout input[type=text]:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-    transform: translateY(-5px);
-}
-.checkout input[type=submit] {
-    background-color: var(--primary-color);
-    color: var(--white-color);
-    border: none;
-    padding: 30px auto;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: ease-in-out 0.3s;
-    margin-bottom: 25px;
-    text-align: center;
-}
-.checkout input[type=submit]:hover {
-    background-color: var(--white-color);
-    color: #111;
-}
-.checkout label {
-    font-weight: bold;
-}
-.checkout .icon-container {
-    width: 100%;
-    text-align: center;
-}
-.checkout-cards {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: bold;
-    font-size: 16px;
-}
-.checkout .icon-container i {
-    margin-right: 5px;
-    justify-content: space-evenly;
-    font-size: 30px;
-    transition: ease-in-out 0.3s;
-}
-.checkout .icon-container i:hover {
-    transform: translateY(-5px);
-}
-.checkout h3 {
-    margin-bottom: 20px;
-    margin-top: 15px;
-    text-align: center;
-    text-decoration: underline;
-    color: var(--primary-color);
-}
-.checkout .checkout-card-details {
-    width: 100%;
-    display: grid;
-    flex-direction: column;
-    align-items: start;
-    text-align: left;
-}
-@media (max-width: 768px) {
-    .checkout .col-50 {
-        flex: 100%;
-    }
-}
-.checkout a {
-    color: #2196F3;
-}
-.checkout hr {
-    border: 1px solid lightgrey;
-}
-.checkout span.price {
-    float: right;
-    color: grey;
-}
-@media (max-width: 800px) {
-    .checkout .row {
-      flex-direction: column-reverse;
-    }
-    .checkout .col-25 {
-      margin-bottom: 20px;
-    }
-}
 
-/*---my product page*/
-/* Container for the product image */
-.product-container {
-    width: 100%;
-}
-/* Image container to hold the overlay */
-.image-container {
-    position: relative;
-    width: 100%;
-    margin-bottom: 10px;
-}
-.image-container img {
-    width: 100%;
-    height: auto;
-}
-.overlay {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 10px;
-    background: rgba(202, 177, 125, 0.632);
-}
-.overlay h4 {
-    color: var(--dark-color);
-    margin: 0;
-}
-.manage-buttons {
-    display: flex;
-    gap: 5px;
-}
-.manage-buttons .fa {
-    color: white;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-}
-.edit-btn {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-    border-radius: 30%;
-    padding: 5px;
-}
-.delete-btn {
-    background-color: var(--red-color);
-    border-color: var(--red-color);
-    border-radius: 30%;
-    padding: 5px;
-}
-.profile-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 40px 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-}
-.profile-details {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    padding: 20px;
-    border-bottom: 1px solid #ddd;
-    position: relative;
-}
-.profile-picture img {
-    border-radius: 50%;
-    width: 150px;
-    margin-right: 20px;
-}
-.profile-picture button {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    padding: 10px;
-    background-color:#3b8e72;
-    color: var(--white-color);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-.user-info h2 {
-    margin: 10px 0 5px;
-    font-size: 24px;
-}
-.user-info p {
-    margin: 5px 0;
-    font-size: 16px;
-    color: #777;
-}
-.user-info button {
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #3b8e72;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-.my-orders, .transaction-history {
-    margin-top: 35px;
-    margin-bottom: 35px;
-}
-.main-content, .transaction-history-and-orders {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-top: 20px;
-}
-.uploaded-products,
-.product-statistics,
-.transaction-history,
-.my-orders {
-    width: 48%;
-}
-.uploaded-products h2,
-.product-statistics h2,
-.transaction-history h2,
-.my-orders h2 {
-    font-size: 20px;
-    margin-bottom: 20px;
-}
-.uploaded-products .product-preview,
-.transaction-history .product-preview,
-.my-orders .product-preview {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #f9f9f9;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-.uploaded-products .product-preview img,
-.transaction-history .product-preview img,
-.my-orders .product-preview img {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    margin-right: 10px;
-}
-.uploaded-products .view-more a,
-.transaction-history .view-more a,
-.product-statistics .view-more a, 
-.reviews .view-more a,
-.related-products .view-more a,
-.my-orders .view-more a {
-    color: #3b8e72;
-    text-decoration: none;
-    font-size: 14px;
-}
-.uploaded-products .view-more a:hover,
-.transaction-history .view-more a:hover,
-.product-statistics .view-more a:hover,
-.reviews .view-more a:hover,
-.related-products .view-more a:hover,
-.my-orders .view-more a:hover {
-    text-decoration: underline;
-}
-.statistics-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 10px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    width: 100%;
-}
-.summary-section {
-    width: 100%;
-    margin-bottom: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-.summary-item {
-    background-color: #3b8e72;
-    color: #fff;
-    border-radius: 5px;
-    padding: 5px;
-    text-align: center;
-    margin: 5px;
-    width: calc(50% - 10px);
-}
-.summary-item p {
-    margin: 0;
-    font-size: 12px;
-    color: var(--white-color); /* I think it's more visible this way */
-}
-.summary-item h4 {
-    margin: 5px 0 0 0;
-    font-size: 16px;
-}
-.content-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    width: 100%;
-}
-.product-list {
-    width: 45%;
-}
-.product-list ul {
-    list-style: none;
-    padding: 0;
-}
-.product-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 5px;
-    position: relative;
-    padding: 5px;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-    transition: box-shadow 0.3s ease;
-    z-index: 1;
-    width: 100%;
-}
-.product-item img {
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
-    margin-right: 5px;
-    border-radius: 5px;
-}
-.product-item:hover {
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 2;
-}
-.product-details {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: calc(100% + 5px);
-    background-color: #fff;
-    padding: 5px;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 150px;
-    z-index: 3;
-}
-.product-list a {
-    color: #3b8e72;;
-    text-decoration: none;
-    font-size: 14px;
-    flex: 1;
-}
-.product-list a:hover {
-    text-decoration: underline;
-}
-.chart-container {
-    width: 50%;
-    max-width: 100%;
-    margin-top: 0;
-}
-.chart-controls {
-    display: flex;
-    justify-content: center;
-    margin-top: 5px;
-}
-.chart-controls button {
-    margin: 0 2px;
-    padding: 5px;
-    background-color: #3b8e72;;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-.chart-controls button:hover {
-    background-color: #3b8e72;;
-}
 /* Filters  Styling */
 .filters select {
     border-radius: 15px;
@@ -1321,62 +935,6 @@ form a{
 .filters select:hover {
     transform: translateY(-5px);
 }
-
-/* edit product page */
-.col-2.edit {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    width: 100%;
-}
-.col-2.edit p,
-.col-2.edit input,
-.col-2.edit h3 {
-    display: block;
-    width: 100%;
-}
-.col-2.edit input{
-    height: fit-content;
-    text-align: start;
-    padding: 8px;
-    font-family: 'Times New Roman';
-}
-.col-2.edit input[type="number"] {
-    width: 35%;
-}
-.edit-text-box {
-    width: 500px;
-    height: 100px;
-    border-radius: 5px;
-    padding: 12px 20px;
-    font-size: 16px;
-    box-sizing: border-box;
-}
-.edit-text-box::placeholder {
-    font-family: "Times New Roman", Times, serif;
-    font-size: 18px;
-}
-.col-2.edit .buttons button, 
-.row .add-buttons button{
-    font-size: 16px;
-    font-family: inherit;
-    background: var(--primary-color);
-    color: var(--white-color);
-    margin: 10px 10px 10px 0;
-    padding: 8px 30px;
-    border-radius: 30px;
-    border: none;
-    cursor: pointer;
-    transition: background 0.5s, color 0.5s;
-}
-.col-2.edit .buttons button:hover, 
-.row .add-buttons button:hover{
-    background: var(--star-color);
-    color: var(--white-color);
-}
-
-
 /* Responsive Design for Mobile Screens */
 @media (max-width: 768px) {
     .navbar {
@@ -1448,4 +1006,27 @@ form a{
         right: 0;
         z-index: 10;
     }
+}
+
+/* Message Boxes Styling */
+.errormessage {
+    color: #a94442;
+    background-color: #f2dede;
+    border: 1px solid #ebccd1;
+    padding: 15px;
+    border-radius: 4px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'Times New Roman';
+}
+
+.successmessage {
+    color: #3b8e72;
+    background-color: #d2edd1;
+    border: 1px solid #b2cdb1;
+    padding: 15px;
+    border-radius: 4px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'Times New Roman';
 }

@@ -3,6 +3,7 @@ using System.Data;
 
 namespace Cartel_Search_Products.Models
 {
+    // Equivalent UserService.java
     public class UserModel
     {
         private readonly MySqlConnection _connection;

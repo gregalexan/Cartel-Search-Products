@@ -2,6 +2,7 @@
 
 namespace Cartel_Search_Products.Models
 {
+    /* Represents the user */
     public class User
     {
         [Required]
@@ -21,7 +22,5 @@ namespace Cartel_Search_Products.Models
         public string address { get; set; }
         public string phone { get; set; }
         public int zip {  get; set; }
-        
-
     }
 }
