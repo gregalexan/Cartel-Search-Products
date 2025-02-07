@@ -98,7 +98,7 @@ namespace Cartel_Search_Products.Models
                         insertCmd.Parameters.AddWithValue("@City", user.city ?? string.Empty);
                         insertCmd.Parameters.AddWithValue("@Address", user.address ?? string.Empty);
                         insertCmd.Parameters.AddWithValue("@Zip", user.zip);
-                        insertCmd.Parameters.AddWithValue("@Image", user.image ?? string.Empty);
+                        insertCmd.Parameters.AddWithValue("@Image", user.image ?? "images/profile-default.png");
                         insertCmd.Parameters.AddWithValue("@Joined", user.joined);
 
                         insertCmd.ExecuteNonQuery();
