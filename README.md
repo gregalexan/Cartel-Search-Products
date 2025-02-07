@@ -7,6 +7,7 @@
 - [AI :robot:](#ai-robot)
 - [Setup and Installation :desktop_computer:](#setup-and-installation-desktop_computer)
 - [Scenario :scroll:](#scenario-scroll)
+- [License :balance_scale:](#license-balance_scale)
 
 ## Overview :open_book:
 *Cartel* is a versatile B2B platform designed for everyone! This web application is built using ASP .NET CORE MVC Framework and follows a robust 3-tier architecture:  
@@ -105,4 +106,5 @@ Please execute this in *desktop* mode.
 | 14   | Details | Click **Log out** | You are logged out and redirected to the home page |
 | 15   | Home    | Click **Join Cartel**, type Username: ```cartelsearchproducts``` and Password: ```123456789``` | Redirect to the home page, logged in |
 
-
+## License :balance_scale:
+The project is licensed under the terms of ***Apache License version 2.0***  
