@@ -10,7 +10,6 @@
     <div style="padding: 15px; background-color: #F4E8C1; color: white; border: 2px solid #e5bf6b; border-radius: 5px; font-family: 'Times New Roman', Times, serif, sans-serif; font-size: 16px; text-align: center; width: 100%; margin-top: 50px; margin-bottom: 250px;">
         Please choose a valid product.
     </div>
-
 }
 else
 {
@@ -40,7 +39,8 @@ else
                 <h4>@Model.Product.price $</h4>
                 <br />
                 <h5>Stock: @Model.Product.stock</h5>
-                @if (Model.Product.stock == 0)
+                <!-- Checking for available stock -->
+                @if (Model.Product.stock <= 0)
                 {
                     <h3 style="color: red; margin-top: 15px; margin-bottom: 15px;">
                         Out of Stock!

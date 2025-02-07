@@ -12,7 +12,7 @@ namespace Cartel_Search_Products.Models
             _connection = connection;
         }
 
-        // Get Products from database based on keywords and categories
+        // Get Products from database based on keywords
         public List<Product> viewProducts(List<string> keywords, bool isCategory)
         {
             var products = new List<Product>();

@@ -41,7 +41,6 @@ namespace Cartel_Search_Products.Models
                     {
                         while (reader.Read())
                         {
-                            // Populate the Review object from the result set
                             reviews.Add(new Review
                             {
                                 review = reader["review"].ToString(),

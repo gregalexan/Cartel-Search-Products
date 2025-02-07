@@ -3,7 +3,7 @@
     var errorMessage = TempData["ErrorMessage"] as string;
 }
 <div class="account-page">
-    @if (errorMessage != null) @* Example usage: User tries to post a review and he/she isn't logged in -> redirect to login / register *@
+    @if (errorMessage != null) @* Example usage: User tries to post a review and isn't logged in -> redirect to login / register *@
     {
         <div style="color: #a94442; background-color: #f2dede; border: 1px solid #ebccd1; padding: 15px; border-radius: 4px; text-align: center; margin-bottom: 20px;" role="alert">
             @errorMessage

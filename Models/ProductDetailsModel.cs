@@ -1,7 +1,8 @@
 ﻿namespace Cartel_Search_Products.Models
 {
-    /* Custom object to pass to Details.cshtml
-       Makes it easier to show the results 
+    /* 
+     * Custom object to pass to Details.cshtml
+     * Makes it easier to show the results 
     */
     public class ProductDetailsModel
     {

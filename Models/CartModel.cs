@@ -4,8 +4,9 @@
     public class CartModel
     {
         public List<Product> cart { get; set; }
-        /* Function to return the current subtotal of the cart.
-           The subtotal is the sum of the prices pre-tax .
+        /* 
+         * Function to return the current subtotal of the cart.
+         * The subtotal is the sum of the prices pre-tax .
         */
         public double getSubtotal()
         {
