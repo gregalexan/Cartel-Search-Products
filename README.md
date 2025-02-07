@@ -4,9 +4,9 @@
 - [Overview :open_book:](#overview-open_book)
 - [Documentation :sparkles:](#documentation-sparkles)
 - [Take a Look :mag_right:](#take-a-look-mag_right)
-- [AI :robot:](ai-robot)
+- [AI :robot:](#ai-robot)
 - [Setup and Installation :desktop_computer:](#setup-and-installation-desktop_computer)
-- [Scenario :scroll:](scenario-scroll)
+- [Scenario :scroll:](#scenario-scroll)
 
 ## Overview :open_book:
 *Cartel* is a versatile B2B platform designed for everyone! This web application is built using ASP .NET CORE MVC Framework and follows a robust 3-tier architecture:  
