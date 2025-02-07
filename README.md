@@ -85,4 +85,24 @@ The app is now running on http://localhost:5244
 
 ## Scenario :scroll:
 In order to test the web application, you can execute the following scenario.
+Please execute this in *desktop* mode.  
+  
+| A/A  | Page   | Data Entry   | Expected Result |
+| ---- | ------ | ------------ | --------------- | 
+| 1    | Home   | Type ```chair``` into the search bar and press enter | Shows all the products that have in their title or description the word: ***chair*** |
+| 2    | Home   | Type ```tree``` into the search bar and press enter | Shows the message: ***No products found matching: tree*** |
+| 3    | Home   | Click the dropdown list ***Categories*** and choose **Bathroom** | Shows all the products with category: **Bathroom** |
+| 4    | Home   | Click the dropdown list ***Default Sorting*** and change it to **Sort by Rating** | See all the products sorted based on the rating (5 stars first) |
+| 5    | Home   | Select again the ***Default Sorting*** and then click on the product **Luxe Loom Towels 100% Cotton** | Redirect to Details page |
+| 6    | Details | Click on **Add your own review** | Redirect to Join Cartel with error message ***You have to log in to post a review*** |
+| 7    | Join    | Click ***Register*** and add the following information: Company Name: ```cartelsearchproducts```  Email: ```info@cartelsearchproducts.com```  Company SSN: ```123456123```   Username: ```cartelsearchproducts``` Password: ```abc```  then click **Register** | Shows error message: ***There are errors in the register form*** |
+| 8    | Join    | Click ***Register*** again and add the same information, this time Password: ```123456789``` | Redirect to the home page |
+| 9    | Home    | Click again the **Luxe Loom Towels 100% Cotton** and then **Add your own review**. Then select 5 stars (because the product is excellent) and type a message if you like | Redirect to the Details page of the product. |
+| 10   | Details | Click ***View More*** next to **Reviews** | Redirect to **Product Reviews** and the review you have posted is in there. |
+| 11   | Reviews | Click the ***Cartel Logo*** in the Top Left Corner, select the product **Luxe Loom Towels 100% Cotton** and now click **Add To Cart** | Shows success message: ***Product: Luxe Loom Towels 100% Cotton added to cart successfully!*** |
+| 12   | Details | Click the **Cart** icon | Redirect to the **Cart** page, with the product in there |
+| 13   | Cart    | Click ***Remove*** | Redirect to Details with success message: ***Product: Luxe Loom Towels 100% Cotton deleted successfully!*** |
+| 14   | Details | Click **Log out** | You are logged out and redirected to the home page |
+| 15   | Home    | Click **Join Cartel**, type Username: ```cartelsearchproducts``` and Password: ```123456789``` | Redirect to the home page, logged in |
+
 
