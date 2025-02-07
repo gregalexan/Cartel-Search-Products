@@ -1,3 +1,25 @@
-# ChatGPT Help  
-Prompts and answers
+# ChatGPT :robot:  
 
+### We listen, we don't judge 
+
+1) [JSP to ASP .NET Conversion](https://chatgpt.com/share/67a60508-c67c-800d-b249-c99095184555)
+2) [JSP to ASP .NET Navbar](https://chatgpt.com/share/67a60559-a15c-800d-a0e6-eb8dca34aa41)
+3) [ASP .NET Core MVC Service](https://chatgpt.com/share/67a60575-f738-800d-976c-008e07cdc41e)
+4) [Enviroment Variable Setup](https://chatgpt.com/share/67a60598-9da4-800d-a9ba-2d48014e0590)
+5) [JSP to ASP .NET Pagination](https://chatgpt.com/share/67a605ae-5fd8-800d-a334-10636d29c615)
+6) [Product Search Implementation](https://chatgpt.com/share/67a605cc-4544-800d-bc0c-e255562fa0fb)
+7) [EF Core LINQ Error](https://chatgpt.com/share/67a605e5-cd0c-800d-86ce-d8164d9ac55b)
+8) [Search Query Filtering ASP .NET Core MVC](https://chatgpt.com/share/67a605fb-9ef4-800d-942a-a7ed9365fadd)
+9) [EF Core Model Mapping](https://chatgpt.com/share/67a60612-b3f8-800d-9edc-6fa741fc0593)
+10) [MySQL Connection Issue Fix](https://chatgpt.com/share/67a60633-1680-800d-9588-5ab21ecc7028)
+11) [MySqlConnection disposed error](https://chatgpt.com/share/67a6064f-e788-800d-8bf2-eb764c370d1e)
+12) [Optimizing Product Rating Quantity](https://chatgpt.com/share/67a6067c-4904-800d-927c-947660c5f4a8)
+13) [NullReferenceException Fix](https://chatgpt.com/share/67a60440-2ed8-800d-bffa-667b6e552fd9)
+14) [ASP .NET Core Cart Implementation](https://chatgpt.com/share/67a60485-434c-800d-855b-35afcb483e02)
+15) [ASP .NET Core Login/Register](https://chatgpt.com/share/67a606db-b6bc-800d-b98e-b732c80e44bb)
+16) [Bootstrap Alternative Styling](https://chatgpt.com/share/67a606f4-fd14-800d-ac5c-43905a7212bd)
+17) [Java to C# Conversion](https://chatgpt.com/share/67a6070e-fb30-800d-92d9-58653be7827e)
+18) [Store Cart in Session](https://chatgpt.com/share/67a60726-20a0-800d-a333-079574830560)
+19) [Rounding Numeric Values](https://chatgpt.com/share/67a60737-a068-800d-8986-19fa381d9c88)
+20) [Set companyName from session](https://chatgpt.com/share/67a6074a-3f7c-800d-b57c-ee082d7ae6ac)
+21) [Post Review Form Implementation](https://chatgpt.com/share/67a60774-9960-800d-8a62-05d06972317d)
