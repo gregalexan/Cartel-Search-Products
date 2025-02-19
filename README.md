@@ -40,9 +40,8 @@ This use case has the following features:
   10) **Login, Register and Logout**
 
 ### Future Improvements :soon:  
-  1) Mobile Version: **Add Review**
-  2) Mobile Version: **Join Cartel**
-  3) Combine **Filters** and **Search Result** 
+  1) Mobile Version: General Improvements 
+  2) Combine **Filters** and **Search Result** 
 
 ## Take a Look :mag_right:
 **You can check the project live [here](http://ism.dmst.aueb.gr/ismgroup58)**  
@@ -88,7 +87,7 @@ The app is now running on http://localhost:5244
 In order to test the web application, you can execute the following scenario.
 Please execute this in *desktop* mode.  
   
-| A/A  | Page   | Data Entry   | Expected Result |
+| No.  | Page   | Data Entry   | Expected Result |
 | ---- | ------ | ------------ | --------------- | 
 | 1    | Home   | Type ```chair``` into the search bar and press enter | Shows all the products that have in their title or description the word: ***chair*** |
 | 2    | Home   | Type ```tree``` into the search bar and press enter | Shows the message: ***No products found matching: tree*** |
