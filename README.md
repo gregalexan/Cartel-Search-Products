@@ -88,7 +88,8 @@ vim appsettings.json
 ```
 dotnet run
 ```
-The app is now running on http://localhost:5244
+- You will see the following message: ***Now listening on: http://localhost:5244***  
+So, go there to test the app!
 
 ## Scenario :scroll:
 In order to test the web application, you can execute the following scenario.
