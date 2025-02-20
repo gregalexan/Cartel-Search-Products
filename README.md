@@ -63,6 +63,12 @@ git clone git@github.com:gregalexan/Cartel-Search-Products.git
 cd Cartel-Search-Products
 ```
 2) Edit appsetings.json
+- First, open the **appsettings.json** using this command:
+```
+vim appsettings.json
+```
+- You can insert the connection string, pressing (**i**) for insert
+- Navigate with the arrows on the keyboard to type the connection string
 ```
 {
     "Logging": {
@@ -77,6 +83,7 @@ cd Cartel-Search-Products
     }
 }
 ```
+- Save the changes by pressing (**:**) and then (**wq**)
 3) Run the application
 ```
 dotnet run
