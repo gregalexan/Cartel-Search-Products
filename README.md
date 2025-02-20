@@ -58,7 +58,8 @@ Note: Free Version, like everyone.
 - **Access to the ***Connection String*****
 - **MySQL Database**
 
-### Installing & Running :gear:
+### Installing & Running :gear:  
+Open *Git Bash* (recommended)  
 1) Clone the repository
 ```
 git clone git@github.com:gregalexan/Cartel-Search-Products.git
