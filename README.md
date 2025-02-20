@@ -52,9 +52,11 @@ Note: Free Version, like everyone.
 
 ## Setup and Installation :desktop_computer:
 
-### Prerequisites :clipboard:
+### Prerequisites :clipboard:  
+- **.NET SDK**
 - **Visual Studio**
 - **Access to the ***Connection String*****
+- **MySQL Database**
 
 ### Installing & Running :gear:
 1) Clone the repository
